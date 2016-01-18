@@ -1,10 +1,10 @@
 language: csharp
 mono:
-  - latest
+  - alpha
 solution: GestureRecognition.sln
 install:
   - nuget restore GestureRecognition.sln
   - nuget install xunit.runners -Version 2.0.0 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Release /p:DebugSymbols=False /p:TargetFrameworkVersion="v4.5 GestureRecognition.sln
-  - mono ./testrunner/xunit.runners.2.0.0/tools/xunit.console.clr4.exe ./GestureRecognitionTest/bin/Release/GestureRecognitionTest.dll
+  - xbuild /p:Configuration=Release GestureRecognition.sln
+  - mono ./packages/xunit.runner.console.2.0.0/tools/xunit.console.exe  ./GestureRecognitionTest/bin/Release/GestureRecognitionTest.dll -noshadow
