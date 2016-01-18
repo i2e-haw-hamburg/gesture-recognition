@@ -13,6 +13,6 @@
     <tags>gestures human-computer-interaction</tags>
   </metadata>
   <files> 
-    <file src="bin\Release\GestureRecognition.dll" target="lib\net45\"/>
+    <file src="bin/Release/GestureRecognition.dll" target="lib\net45\"/>
   </files>
 </package>

@@ -13,6 +13,6 @@ deploy:
   provider: script
   skip_cleanup: true
   script:
-    - cd GestureRecognition && ls -lR bin && nuget pack GestureRecognition.nuspec -Version $VERSION -IncludeReferencedProjects -Prop Configuration=Release && nuget push *.nupkg $NUGET_API_KEY -verbosity detailed
+    - cd GestureRecognition && nuget pack GestureRecognition.nuspec -Version $VERSION -IncludeReferencedProjects -Prop Configuration=Release && nuget push *.nupkg $NUGET_API_KEY -verbosity detailed
   on:
     branch: master
