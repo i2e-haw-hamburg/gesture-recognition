@@ -1,6 +1,7 @@
 language: csharp
 mono:
   - alpha
+env: VERSION=0.1.0
 solution: GestureRecognition.sln
 install:
   - nuget restore GestureRecognition.sln
@@ -8,3 +9,10 @@ install:
 script:
   - xbuild /p:Configuration=Release GestureRecognition.sln
   - mono ./packages/xunit.runner.console.2.0.0/tools/xunit.console.exe  ./GestureRecognitionTest/bin/Release/GestureRecognitionTest.dll -noshadow
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    - cd GestureRecognition && nuget pack GestureRecognition.nuspec -Version $VERSION -IncludeReferencedProjects -Prop Configuration=Release && nuget push *.nupkg $NUGET_API_KEY -verbosity detailed
+  on:
+    branch: master

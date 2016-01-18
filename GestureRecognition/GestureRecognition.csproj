@@ -130,6 +130,7 @@
     <Compile Include="Utility\ListExtension.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GestureRecognition.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

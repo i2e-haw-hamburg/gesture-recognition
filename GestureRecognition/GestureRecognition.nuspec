@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>i2e.gesture-recognition</id>
+    <version>$version$</version>
+    <title>Gesture Recognition</title>
+    <authors>Christian Blank</authors>
+    <owners>Christian Blank</owners>
+    <licenseUrl>https://github.com/i2e-haw-hamburg/gesture-recognition</licenseUrl>
+    <projectUrl>https://github.com/i2e-haw-hamburg/gesture-recognition</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A .NET api for gesture recognition</description>
+    <tags>gestures human-computer-interaction</tags>
+  </metadata>
+  <files> 
+    <file src="bin\Release\GestureRecognition.dll" target="lib\net45\"/>
+  </files>
+</package>
