@@ -12,11 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CD6BF2
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrameSkeleton", "..\..\trame\src\TrameSkeleton\TrameSkeleton.csproj", "{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9DC81A92-F3E3-4084-89ED-94D2B76F39A1}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestureRecognitionTest", "GestureRecognitionTest\GestureRecognitionTest.csproj", "{A1E9303D-8260-424A-A87E-301A37729285}"
@@ -83,47 +82,6 @@ Global
 		{BC1129C8-F95E-4240-9B63-81A0538AC0DC}.UnityDeployment|Any CPU.Build.0 = Release|Any CPU
 		{BC1129C8-F95E-4240-9B63-81A0538AC0DC}.UnityDeployment|x64.ActiveCfg = Release|Any CPU
 		{BC1129C8-F95E-4240-9B63-81A0538AC0DC}.UnityDeployment|x86.ActiveCfg = Release|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.BuildToUnity|Any CPU.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.BuildToUnity|Any CPU.Build.0 = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.BuildToUnity|x64.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.BuildToUnity|x86.ActiveCfg = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.BuildToUnity|x86.Build.0 = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.CoreOnly|Any CPU.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.CoreOnly|Any CPU.Build.0 = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.CoreOnly|x64.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.CoreOnly|x86.ActiveCfg = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.CoreOnly|x86.Build.0 = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Debug|x64.ActiveCfg = Debug|x64
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Debug|x64.Build.0 = Debug|x64
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Debug|x86.ActiveCfg = Debug|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Debug|x86.Build.0 = Debug|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.DeployToUnity|Any CPU.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.DeployToUnity|Any CPU.Build.0 = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.DeployToUnity|x64.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.DeployToUnity|x86.ActiveCfg = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.DeployToUnity|x86.Build.0 = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.iOS|Any CPU.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.iOS|Any CPU.Build.0 = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.iOS|x64.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.iOS|x86.ActiveCfg = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.iOS|x86.Build.0 = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Release|x64.ActiveCfg = Release|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Release|x86.ActiveCfg = Release|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Release|x86.Build.0 = Release|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Unity|Any CPU.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Unity|Any CPU.Build.0 = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Unity|x64.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Unity|x86.ActiveCfg = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.Unity|x86.Build.0 = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.UnityDeployment|Any CPU.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.UnityDeployment|Any CPU.Build.0 = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.UnityDeployment|x64.ActiveCfg = DeployToUnity|Any CPU
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.UnityDeployment|x86.ActiveCfg = DeployToUnity|x86
-		{80826D5E-C20A-4CD1-99CA-39D372AD1D4C}.UnityDeployment|x86.Build.0 = DeployToUnity|x86
 		{A1E9303D-8260-424A-A87E-301A37729285}.BuildToUnity|Any CPU.ActiveCfg = Release|Any CPU
 		{A1E9303D-8260-424A-A87E-301A37729285}.BuildToUnity|Any CPU.Build.0 = Release|Any CPU
 		{A1E9303D-8260-424A-A87E-301A37729285}.BuildToUnity|x64.ActiveCfg = Release|Any CPU
