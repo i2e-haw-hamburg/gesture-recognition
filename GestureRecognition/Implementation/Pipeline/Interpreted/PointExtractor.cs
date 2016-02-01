@@ -16,7 +16,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
         public event Action<DataContainer> Ready;
         private const int WindowSize = 3;
 
-        private readonly IList<JointType> _usedJoints = new[] {JointType.HAND_LEFT, JointType.HAND_RIGHT, JointType.HIP_LEFT, JointType.HIP_RIGHT, JointType.SHOULDER_LEFT, JointType.SHOULDER_RIGHT};
+        private readonly IList<JointType> _usedJoints = new[] {JointType.HAND_LEFT, JointType.HAND_RIGHT, JointType.HIP_LEFT, JointType.HIP_RIGHT, JointType.SHOULDER_LEFT, JointType.SHOULDER_RIGHT, JointType.CENTER};
 
         public void OnNewData(DataContainer dc)
         {

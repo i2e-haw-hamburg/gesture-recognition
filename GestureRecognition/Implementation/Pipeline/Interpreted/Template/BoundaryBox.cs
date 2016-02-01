@@ -1,18 +1,43 @@
 ﻿using System;
+using GestureRecognition.Utility;
 using TrameSkeleton.Math;
 
 namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
 {
     public class BoundaryBox
     {
-        public static BoundaryBox Create(Vector3 first, Vector3 vector3, int i, int i1, int i2)
+        /// <summary>
+        /// Creates a bounding box from a set of parameters.
+        /// </summary>
+        /// <param name="position">the position of a corner of the bounding box</param>
+        /// <param name="height">the height of the bounding box</param>
+        /// <param name="width">the width of the bounding box</param>
+        /// <param name="depth">the depth of the bounding box</param>
+        /// <returns>the new created bounding box</returns>
+        public static BoundaryBox Create(Vector3 position, int height, int width, int depth)
         {
-            return new BoundaryBox();
+            var box = new BoundaryBox
+            {
+                Position = position,
+                Size = new Vector3(width, height, depth)
+            };
+            return box;
+        }
+        
+        public Vector3 Size { get; set; }
+        
+        public Vector3 Position { get; set; }
+
+        /// <summary>
+        /// Checks if a point is in a bounding box.
+        /// </summary>
+        /// <param name="point">the point</param>
+        /// <returns>TRUE if point is in bounding box</returns>
+        public Boolean IsIn(Vector3 point)
+        {
+            var corner = -Position + Size;
+            return point.X.IsBetween(Position.X, corner.X);
         }
 
-        public Boolean IsIn(Vector3 first)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

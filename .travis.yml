@@ -1,14 +1,16 @@
 language: csharp
 mono:
   - alpha
-env: VERSION=0.1.0
+env: VERSION=0.1.1
 solution: GestureRecognition.sln
+before_install:
+  - sudo apt-get install nunit-console
 install:
   - nuget restore GestureRecognition.sln
-  - nuget install xunit.runners -Version 2.0.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release GestureRecognition.sln
-  - mono ./packages/xunit.runner.console.2.0.0/tools/xunit.console.exe  ./GestureRecognitionTest/bin/Release/GestureRecognitionTest.dll -noshadow
+after_script:
+  - nunit-console Tests/bin/Release/GestureRecognition.dll
 deploy:
   provider: script
   skip_cleanup: true
