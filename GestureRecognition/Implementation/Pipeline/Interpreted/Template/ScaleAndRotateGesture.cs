@@ -40,7 +40,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
             var leftHand = input[JointType.HAND_LEFT];
             var rightHand = input[JointType.HAND_RIGHT];
             var center = input[JointType.CENTER];
-            var box = BoundaryBox.Create(center.First, new Vector3(0), 1200, 500, 600);
+            var box = BoundaryBox.Create(center.First - new Vector3(600, 0, 300), 1200, 500, 600);
             // check boundary box
             return box.IsIn(leftHand.First) && box.IsIn(rightHand.First) ? 1 : 0.1;
         }
