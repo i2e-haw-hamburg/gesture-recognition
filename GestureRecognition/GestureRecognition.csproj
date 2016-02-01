@@ -127,6 +127,7 @@
     <Compile Include="Interface\Commands\AInterpretedCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\EnumUtility.cs" />
+    <Compile Include="Utility\DoubleUtility.cs" />
     <Compile Include="Utility\ListExtension.cs" />
   </ItemGroup>
   <ItemGroup>

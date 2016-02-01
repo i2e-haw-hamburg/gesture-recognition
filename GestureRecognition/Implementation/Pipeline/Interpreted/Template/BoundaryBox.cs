@@ -1,4 +1,5 @@
 ﻿using System;
+using GestureRecognition.Utility;
 using TrameSkeleton.Math;
 
 namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
@@ -34,11 +35,9 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
         /// <returns>TRUE if point is in bounding box</returns>
         public Boolean IsIn(Vector3 point)
         {
-            // get rotation
-            
-            // rotate point
-            // move point into internal space
-            throw new NotImplementedException();
+            var corner = -Position + Size;
+            return point.X.IsBetween(Position.X, corner.X);
         }
+
     }
 }

@@ -32,7 +32,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
 
         public override double EndCondition(IDictionary<JointType, InputVector> input)
         {
-            return .1;
+            return 1;
         }
 
         public override double StartCondition(IDictionary<JointType, InputVector> input)
