@@ -109,7 +109,6 @@
     <Compile Include="Implementation\Pipeline\Interpreted\InputVector.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\IRecognizer.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\Sequence.cs" />
-    <Compile Include="Implementation\Pipeline\Physical\Gesture.cs" />
     <Compile Include="Implementation\Pipeline\Physical\PhysicCalculation.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\ITemplate.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\ABasisTemplate.cs" />

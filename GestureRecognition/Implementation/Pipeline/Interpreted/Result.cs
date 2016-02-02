@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GestureRecognition.Implementation.Pipeline.Interpreted.Template;
 using Trame;
-using TrameSkeleton.Math;
 
 namespace GestureRecognition.Implementation.Pipeline.Interpreted
 {
     /// <summary>
     ///     Holds a recognition result.
     /// </summary>
-    /// <author>Per Ola Kristensson & Thomas F W Nicholson</author>
     public class Result : IComparable<Result>
     {
         /// <summary>
@@ -52,7 +48,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
         /// </returns>
         public int CompareTo(Result r)
         {
-            if (prob == r.prob)
+            if (prob.Equals(r.prob))
             {
                 return 0;
             }
