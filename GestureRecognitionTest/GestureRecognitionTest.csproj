@@ -87,6 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pipeline\Interpreted\ResultTest.cs" />
     <Compile Include="Pipeline\Physical\PhysicCalculationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pipeline\Interpreted\Template\BoundaryBoxTest.cs" />

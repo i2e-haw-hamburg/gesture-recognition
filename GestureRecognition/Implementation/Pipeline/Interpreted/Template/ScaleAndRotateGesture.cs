@@ -32,7 +32,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
 
         public override double EndCondition(IDictionary<JointType, InputVector> input)
         {
-            return 1;
+            return 0.8;
         }
 
         public override double StartCondition(IDictionary<JointType, InputVector> input)
@@ -47,7 +47,12 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
 
         public override double MotionCharacteristic(IDictionary<JointType, InputVector> input)
         {
-            return .1;
+            var leftHand = input[JointType.HAND_LEFT];
+            var rightHand = input[JointType.HAND_RIGHT];
+            var center = input[JointType.CENTER];
+            var box = BoundaryBox.Create(center.Last - new Vector3(600, 0, 300), 1200, 500, 600);
+            // check boundary box
+            return box.IsIn(leftHand.Last) && box.IsIn(rightHand.Last) ? 1 : 0.1;
         }
     }
 }

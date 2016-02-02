@@ -16,7 +16,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
             return gesture;
         }
 
-        public static IList<ITemplate> CreateTemplates()
+        public static IEnumerable<ITemplate> CreateTemplates()
         {
             return new List<ITemplate>
             {
@@ -72,13 +72,5 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
             return template;
         }
 
-    }
-
-    public enum Gesture
-    {
-        TwoHandScaleAndRotate,
-        Explode,
-        Implode,
-        Samurai
     }
 }
