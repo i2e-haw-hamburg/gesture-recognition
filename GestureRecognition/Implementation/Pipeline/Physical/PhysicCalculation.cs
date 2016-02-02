@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using GestureRecognition.Interface.Commands;
 using Trame;
 using Trame.Implementation.Skeleton;
 using TrameSkeleton.Math;
 
+
+[assembly: InternalsVisibleTo("GestureRecognitionTest")]
 namespace GestureRecognition.Implementation.Pipeline.Physical
 {
     /// <summary>
@@ -92,14 +95,29 @@ namespace GestureRecognition.Implementation.Pipeline.Physical
             return part;
         }
 
-        private Vector3 CalculateVelocity(Vector3 j1, Vector3 j2, long time)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public static Vector3 CalculateVelocity(Vector3 p1, Vector3 p2, long time)
         {
-            return (j2 - j1)/time;
+            return (p2 - p1)/time;
         }
-
-        private Vector3 CalculateAcceleration(Vector3 j0, Vector3 j1, Vector3 j2, long time1, long time2)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        /// <param name="time1"></param>
+        /// <param name="time2"></param>
+        /// <returns></returns>
+        public static Vector3 CalculateAcceleration(Vector3 p1, Vector3 p2, Vector3 p3, long time1, long time2)
         {
-            return ((j2 - j1) / time2 - (j1 - j0) / time1) / time2;
+            return (CalculateVelocity(p2, p3, time2) - CalculateVelocity(p1, p2, time1)) / time2;
         }
     }
 }
