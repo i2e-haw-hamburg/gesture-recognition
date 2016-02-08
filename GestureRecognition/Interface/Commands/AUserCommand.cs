@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GestureRecognition.Implementation.Pipeline.Interpreted;
+using Trame;
 
 #endregion
 
@@ -17,5 +19,6 @@ namespace GestureRecognition.Interface.Commands
         protected abstract string InfoDump();
 
         public string Info => InfoDump();
+        public IDictionary<JointType, InputVector> Input { get; set; }
     }
 }

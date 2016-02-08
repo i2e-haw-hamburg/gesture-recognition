@@ -42,6 +42,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
                 // remove skeletons
                 dc.Clear();
                 dc.Command = result.template.Command;
+                dc.Command.Input = dc.Input;
                 FireReady(dc);
             }
         }
