@@ -40,10 +40,10 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
             if (result.prob > _threshold)
             {
                 // remove skeletons
-                dc.Clear();
                 dc.Command = result.template.Command;
-                dc.Command.Input = dc.Input;
+                dc.Command.Input = result.pts;
                 FireReady(dc);
+                dc.Clear();
             }
         }
 
