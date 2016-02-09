@@ -32,7 +32,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
 
         public override double EndCondition(IDictionary<JointType, InputVector> input)
         {
-            return 0.8;
+            return input[JointType.HAND_LEFT].Stream.Count() >= 12 ? 1.0 : 0;
         }
 
         public override double StartCondition(IDictionary<JointType, InputVector> input)
