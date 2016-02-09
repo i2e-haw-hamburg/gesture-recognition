@@ -9,7 +9,7 @@ namespace GestureRecognition.Utility
     public static class ListExtension
     {
         /// <summary>
-        /// 
+        /// Chunk a given list by the chunk size and return a list of lists.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>

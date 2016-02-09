@@ -3,16 +3,14 @@
     public class SamuraiCommand : AInterpretedCommand
     {
 
-        protected override string InfoDump()
-        {
-            return "SamuraiCommand";
-        }
-
         public SamuraiCommand(string id, string name) : base(id, name)
         {
         }
 
         public SamuraiCommand()
-        {}
+        {
+            this.Id = "SamuraiCommand";
+            this.Name = "SamuraiCommand";
+        }
     }
 }

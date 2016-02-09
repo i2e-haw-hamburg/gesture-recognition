@@ -12,6 +12,9 @@
         }
 
         public ExplodeCommand()
-        {}
+        {
+            this.Id = "ExplodeCommand";
+            this.Name = "ExplodeCommand";
+        }
     }
 }

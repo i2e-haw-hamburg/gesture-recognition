@@ -112,6 +112,7 @@
     <Compile Include="Implementation\Pipeline\Physical\PhysicCalculation.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\ITemplate.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\ABasisTemplate.cs" />
+    <Compile Include="Interface\Commands\NoneCommand.cs" />
     <Compile Include="Interface\Commands\ScaleAndRotate.cs" />
     <Compile Include="Interface\Commands\PhysicCommand.cs" />
     <Compile Include="Interface\Commands\ExplodeCommand.cs" />

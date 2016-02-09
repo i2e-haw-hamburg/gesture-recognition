@@ -14,7 +14,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
         /// <param name="width">the width of the bounding box</param>
         /// <param name="depth">the depth of the bounding box</param>
         /// <returns>the new created bounding box</returns>
-        public static BoundaryBox Create(Vector3 position, int height, int width, int depth)
+        public static BoundaryBox Create(Vector3 position, double height, double width, double depth)
         {
             var box = new BoundaryBox
             {
@@ -35,7 +35,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
         /// <returns>TRUE if point is in bounding box</returns>
         public Boolean IsIn(Vector3 point)
         {
-            var corner = -Position + Size;
+            var corner = Position + Size;
             return point.X.IsBetween(Position.X, corner.X);
         }
 

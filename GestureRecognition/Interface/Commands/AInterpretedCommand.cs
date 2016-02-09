@@ -1,4 +1,6 @@
-﻿namespace GestureRecognition.Interface.Commands
+﻿using System;
+
+namespace GestureRecognition.Interface.Commands
 {
     public abstract class AInterpretedCommand : AUserCommand
     {
@@ -19,7 +21,7 @@
 
         protected override string InfoDump()
         {
-            return $"Simple Command({Id}) - {Name}";
+            return $"{Name}({Id}) at {DateTime.Now}";
         }
     }
 }

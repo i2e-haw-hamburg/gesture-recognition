@@ -39,12 +39,16 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
             var result = results.OrderByDescending(r => r.prob).First();
             if (result.prob > _threshold)
             {
-                // remove skeletons
                 dc.Command = result.template.Command;
-                dc.Command.Input = result.pts;
-                FireReady(dc);
+                // remove skeletons
                 dc.Clear();
             }
+            else
+            {
+                dc.Command = new NoneCommand();
+            }
+            dc.Command.Input = result.pts;
+            FireReady(dc);
         }
 
         private void FireReady(DataContainer dc)
