@@ -12,6 +12,9 @@
         }
 
         public ImplodeCommand()
-        {}
+        {
+            this.Id = "ImplodeCommand";
+            this.Name = "ImplodeCommand";
+        }
     }
 }

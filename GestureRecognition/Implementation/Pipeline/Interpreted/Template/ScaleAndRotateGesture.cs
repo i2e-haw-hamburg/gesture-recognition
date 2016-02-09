@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Trame;
 using TrameSkeleton.Math;
@@ -10,7 +11,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
     /// </summary>
     public class ScaleAndRotateGesture : ABasisTemplate
     {
-
+        private const int CountOfFrames = 12;
         /// <summary> 
         /// The basic constructor needs the gesture id and the gesture name. Both should be unique.
         /// </summary>
@@ -32,7 +33,14 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
 
         public override double EndCondition(IDictionary<JointType, InputVector> input)
         {
-            return input[JointType.HAND_LEFT].Stream.Count() >= 12 ? 1.0 : 0;
+            var frameSize = 3;
+            var leftHand = input[JointType.HAND_LEFT];
+            var rightHand = input[JointType.HAND_RIGHT];
+            var center = input[JointType.CENTER];
+            var isOld = leftHand.Stream.Count() >= (CountOfFrames / frameSize);
+            var box = BoundaryBox.Create(center.First - new Vector3(0.6, -0.1, 0.2), 0.8, 0.5, 0.5);
+            // check boundary box
+            return isOld && box.IsIn(leftHand.Last) && box.IsIn(rightHand.Last) ? 1 : 0.1;
         }
 
         public override double StartCondition(IDictionary<JointType, InputVector> input)
@@ -40,7 +48,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
             var leftHand = input[JointType.HAND_LEFT];
             var rightHand = input[JointType.HAND_RIGHT];
             var center = input[JointType.CENTER];
-            var box = BoundaryBox.Create(center.First - new Vector3(600, 0, 300), 1200, 500, 600);
+            var box = BoundaryBox.Create(center.First - new Vector3(0.6, -0.1, 0.2), 0.8, 0.5, 0.5);
             // check boundary box
             return box.IsIn(leftHand.First) && box.IsIn(rightHand.First) ? 1 : 0.1;
         }
@@ -49,10 +57,11 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
         {
             var leftHand = input[JointType.HAND_LEFT];
             var rightHand = input[JointType.HAND_RIGHT];
-            var center = input[JointType.CENTER];
-            var box = BoundaryBox.Create(center.Last - new Vector3(600, 0, 300), 1200, 500, 600);
-            // check boundary box
-            return box.IsIn(leftHand.Last) && box.IsIn(rightHand.Last) ? 1 : 0.1;
+            var leftHandMovement = leftHand.Last - leftHand.First;
+            var rightHandMovement = rightHand.Last - rightHand.First;
+            var turningAngle = Vector3.Angle(leftHandMovement, rightHandMovement) * 360 /(2 * Math.PI);
+            var sameDirection = turningAngle < 30 || turningAngle > 330;
+            return !sameDirection ? 1 : 0;
         }
     }
 }
