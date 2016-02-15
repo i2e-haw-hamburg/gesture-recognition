@@ -15,20 +15,21 @@ namespace GestureRecognition.Implementation.Pipeline.Task
     /// </summary>
     public class PointExtractionTask
     {
+		/// <summary>
+		/// The size of the window.
+		/// </summary>
         private const int WindowSize = 3;
 
+		/// <summary>
+		/// The used joints.
+		/// </summary>
         private readonly IList<JointType> _usedJoints = new[] {JointType.HAND_LEFT, JointType.HAND_RIGHT, JointType.HIP_LEFT, JointType.HIP_RIGHT, JointType.SHOULDER_LEFT, JointType.SHOULDER_RIGHT, JointType.CENTER};
 
-        public void OnNewData(DataContainer dc)
-        {
-            foreach (var jointType in _usedJoints)
-            {
-                var vector = dc.Stream.Select(s => s.GetJoint(jointType).Point);
-                // use window function to smooth the motion
-                dc.Input[jointType] = new InputVector(vector.ChunkBy(WindowSize).Select(Mean));
-            }
-        }
-
+		/// <summary>
+		/// Do the specified input and output.
+		/// </summary>
+		/// <param name="input">Input.</param>
+		/// <param name="output">Output.</param>
         public void Do(BlockingCollection<ISkeleton> input, BlockingCollection<IDictionary<JointType, Vector3>> output)
         {
             try
@@ -50,6 +51,10 @@ namespace GestureRecognition.Implementation.Pipeline.Task
             }
         }
 
+		/// <summary>
+		/// Mean the specified vectorList.
+		/// </summary>
+		/// <param name="vectorList">Vector list.</param>
         public Vector3 Mean(IList<Vector3> vectorList)
         {
             var first = vectorList.FirstOrDefault();

@@ -37,8 +37,8 @@ namespace GestureRecognition.Implementation
         {
             _physicsPipeline = Initializer.CreatePipeline(this, new PhysicCalculation());
             var f = new TaskFactory(TaskCreationOptions.LongRunning, TaskContinuationOptions.None);
-            _interpretedPipeline = Initializer.CreatePipeline(this, new PointExtractionTask(), new MatchingTask(recognizer));
-            _dataStream = dataStream;
+            
+			_dataStream = dataStream;
         }
 
         /// <summary>
