@@ -39,9 +39,7 @@ namespace GestureRecognition.Implementation.Pipeline.Task
                 foreach (var jointType in _usedJoints)
                 {
                     var smoothed = skeletons
-                        .Select(s => s.GetJoint(jointType).Point)
-                        .ChunkBy(WindowSize)
-                        .Select(Mean);
+						.Select(s => s.GetJoint(jointType).Point);
                 }
                 output.Add(dict);
             }
@@ -49,17 +47,6 @@ namespace GestureRecognition.Implementation.Pipeline.Task
             {
                 output.CompleteAdding();
             }
-        }
-
-		/// <summary>
-		/// Mean the specified vectorList.
-		/// </summary>
-		/// <param name="vectorList">Vector list.</param>
-        public Vector3 Mean(IList<Vector3> vectorList)
-        {
-            var first = vectorList.FirstOrDefault();
-            var last = vectorList.LastOrDefault();
-            return last + (last - first)/vectorList.Count;
         }
     }
 }

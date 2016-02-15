@@ -11,7 +11,7 @@ namespace GestureRecognitionTest.Pipeline.Task
         [Test]
         public void TestInitialisation()
         {
-            var task = new MatchingTask(new ThreeDGestureRecognizer());
+            var task = new RecognitionTask(new ThreeDGestureRecognizer());
             Assert.IsTrue(task.Recognizer.GetType().IsInstanceOfType(new ThreeDGestureRecognizer()));
         }
 
