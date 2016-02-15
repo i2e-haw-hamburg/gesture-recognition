@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using GestureRecognition.Implementation.Pipeline;
 using GestureRecognition.Implementation.Pipeline.Interpreted;
 using GestureRecognition.Implementation.Pipeline.Physical;
+using GestureRecognition.Implementation.Pipeline.Task;
 using GestureRecognition.Interface.Commands;
 using Trame;
 
@@ -34,7 +36,8 @@ namespace GestureRecognition.Implementation
         public Controller(IRecognizer recognizer, DataContainer dataStream)
         {
             _physicsPipeline = Initializer.CreatePipeline(this, new PhysicCalculation());
-            _interpretedPipeline = Initializer.CreatePipeline(this, new PointExtractor(), new Matcher(recognizer));
+            var f = new TaskFactory(TaskCreationOptions.LongRunning, TaskContinuationOptions.None);
+            _interpretedPipeline = Initializer.CreatePipeline(this, new PointExtractionTask(), new MatchingTask(recognizer));
             _dataStream = dataStream;
         }
 

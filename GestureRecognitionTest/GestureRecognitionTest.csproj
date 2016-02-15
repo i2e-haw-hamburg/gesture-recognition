@@ -87,6 +87,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pipeline\Task\CheckActiveTaskTest.cs" />
+    <Compile Include="Pipeline\Task\PointExtractorTest.cs" />
     <Compile Include="Pipeline\Interpreted\ResultTest.cs" />
     <Compile Include="Pipeline\Physical\PhysicCalculationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
