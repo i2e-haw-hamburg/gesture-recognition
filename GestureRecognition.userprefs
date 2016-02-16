@@ -1,1 +1,19 @@
-﻿<Properties StartupItem="GestureRecognitionTest/GestureRecognitionTest.csproj" />
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="GestureRecognitionTest/Pipeline/Task/CheckActiveTaskTest.cs">
+    <Files>
+      <File FileName="GestureRecognitionTest/Pipeline/Task/CheckActiveTaskTest.cs" Line="2" Column="10" />
+    </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State name="__root__">
+          <Node name="GestureRecognition" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

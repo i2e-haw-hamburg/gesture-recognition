@@ -16,11 +16,6 @@ namespace GestureRecognition.Implementation.Pipeline.Task
     public class PointExtractionTask
     {
 		/// <summary>
-		/// The size of the window.
-		/// </summary>
-        private const int WindowSize = 3;
-
-		/// <summary>
 		/// The used joints.
 		/// </summary>
         private readonly IList<JointType> _usedJoints = new[] {JointType.HAND_LEFT, JointType.HAND_RIGHT, JointType.HIP_LEFT, JointType.HIP_RIGHT, JointType.SHOULDER_LEFT, JointType.SHOULDER_RIGHT, JointType.CENTER};

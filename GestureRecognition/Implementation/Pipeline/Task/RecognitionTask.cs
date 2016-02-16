@@ -14,8 +14,15 @@ namespace GestureRecognition.Implementation.Pipeline.Task
     /// </summary>
     public class RecognitionTask
     {
+		/// <summary>
+		/// The recognizer.
+		/// </summary>
         private IRecognizer _recognizer;
 
+		/// <summary>
+		/// Gets or sets the recognizer.
+		/// </summary>
+		/// <value>The recognizer.</value>
         public IRecognizer Recognizer
         {
             get
@@ -38,7 +45,11 @@ namespace GestureRecognition.Implementation.Pipeline.Task
             recognizer.Initialize(TemplateFactory.CreateTemplates());
         }
         
-
+		/// <summary>
+		/// Do the specified input and output.
+		/// </summary>
+		/// <param name="input">Input.</param>
+		/// <param name="output">Output.</param>
         public void Do(BlockingCollection<IDictionary<JointType, Vector3>> input, BlockingCollection<IEnumerable<Result>> output)
         {
             try
@@ -63,7 +74,6 @@ namespace GestureRecognition.Implementation.Pipeline.Task
                 output.CompleteAdding();
             }
         }
-
-        
+		        
     }
 }

@@ -1,10 +1,23 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using Trame;
+using TrameSkeleton.Math;
+using GestureRecognition.Utility;
 
 namespace GestureRecognition
 {
+	/// <summary>
+	/// Smoothing task.
+	/// </summary>
 	public class SmoothingTask
 	{
+
+		/// <summary>
+		/// The size of the window.
+		/// </summary>
+		private const int WindowSize = 3;
 
 		/// <summary>
 		/// Do the specified input and output.
@@ -15,16 +28,15 @@ namespace GestureRecognition
 		{
 			try
 			{
-				var dict = new Dictionary<JointType, Vector3>();
 				var skeletons = input.GetConsumingEnumerable();
-				foreach (var jointType in _usedJoints)
-				{
-					var smoothed = skeletons
-						.Select(s => s.GetJoint(jointType).Point)
-						.ChunkBy(WindowSize)
-						.Select(Mean);
+				var skeletonStreams = skeletons.ChunkBy(WindowSize).Select(ListExtension.Compress);
+				foreach (var window in skeletonStreams) {
+					var smoothed = new Dictionary<JointType,Vector3>();
+					foreach(var jt in window.Keys) {
+						smoothed.Add(jt, Mean(window[jt]));
+					}
+					output.Add(smoothed);
 				}
-				output.Add(dict);
 			}
 			finally
 			{
