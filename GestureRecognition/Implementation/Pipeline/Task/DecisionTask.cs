@@ -3,6 +3,7 @@ using GestureRecognition.Implementation.Pipeline.Interpreted;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections.Concurrent;
+using GestureRecognition.Interface.Commands;
 
 namespace GestureRecognition
 {
@@ -10,18 +11,17 @@ namespace GestureRecognition
 	{
 		private const double Threshold = 0.6;
 
-		public void Do(BlockingCollection<IEnumerable<Result>> input, BlockingCollection<Result> output)
+		public void Do(BlockingCollection<IEnumerable<Result>> input, Action<AUserCommand> fireNewCommand)
 		{
 			try
 			{
 				foreach (var results in input.GetConsumingEnumerable())
 				{
-					output.Add(MakeDecision(results));
+                    fireNewCommand(MakeDecision(results).template.Command);
 				}
 			}
-			finally
+			catch
 			{
-				output.CompleteAdding();
 			}
 		}
 

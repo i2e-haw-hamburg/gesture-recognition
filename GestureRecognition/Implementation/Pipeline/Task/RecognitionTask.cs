@@ -50,21 +50,18 @@ namespace GestureRecognition.Implementation.Pipeline.Task
 		/// </summary>
 		/// <param name="input">Input.</param>
 		/// <param name="output">Output.</param>
-        public void Do(BlockingCollection<IDictionary<JointType, Vector3>> input, BlockingCollection<IEnumerable<Result>> output)
+        public void Do(BlockingCollection<ISkeleton> input, BlockingCollection<IEnumerable<Result>> output)
         {
             try
             {
                 var data = input.GetConsumingEnumerable();
                 var dict = new Dictionary<JointType, InputVector>();
-                foreach (var chunk in data)
+                foreach (var jt in Enum.GetValues(typeof(JointType)).Cast<JointType>())
                 {
-                    foreach (var jointType in chunk.Keys)
+                    var vectors = data.Select(s => s.GetJoint(jt).Point);
+                    if (vectors.Any())
                     {
-                        if (!dict.ContainsKey(jointType))
-                        {
-                            dict.Add(jointType, new InputVector());
-                        }
-                        dict[jointType].Stream.Add(chunk[jointType]);
+                        dict.Add(jt, new InputVector(vectors.ToList()));
                     }
                 }
 				output.Add(Recognizer.Recognize(dict));
