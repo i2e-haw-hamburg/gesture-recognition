@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace GestureRecognitionTest.Pipeline.Task
 {
     [TestFixture]
-    public class PointExtractionTaskTest
+    public class RecognitionTaskTest
     {
         [Test]
         public void TestInitialisation()

@@ -26,5 +26,11 @@ namespace GestureRecognitionTest.Pipeline.Physical
             var time2 = 1;
             Assert.AreEqual(new Vector3(1), PhysicCalculation.CalculateAcceleration(j1, j2, j3, time1, time2));
         }
+
+        [Test]
+        public void TestCreatePhysicCommand()
+        {
+            
+        }
     }
 }

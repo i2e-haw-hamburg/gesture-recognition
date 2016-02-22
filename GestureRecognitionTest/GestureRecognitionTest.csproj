@@ -92,8 +92,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pipeline\Task\CheckActiveTaskTest.cs" />
-    <Compile Include="Pipeline\Task\PointExtractorTest.cs" />
+    <Compile Include="Pipeline\Interpreted\InputVectorTest.cs" />
+    <Compile Include="Pipeline\Interpreted\Recognizer\Blank\ThreeDGestureRecognizerTest.cs" />
+    <Compile Include="Pipeline\Interpreted\Template\ExplodeGestureTest.cs" />
+    <Compile Include="Pipeline\Interpreted\Template\ImplodeGestureTest.cs" />
+    <Compile Include="Pipeline\Interpreted\Template\ScaleAndRotateGestureTest.cs" />
+    <Compile Include="Pipeline\Interpreted\Template\SequenceTest.cs" />
+    <Compile Include="Pipeline\Task\SmoothingTaskTest.cs" />
+    <Compile Include="Pipeline\Task\DecisionTaskTest.cs" />
+    <Compile Include="Pipeline\Task\RecognitionTaskTest.cs" />
     <Compile Include="Pipeline\Interpreted\ResultTest.cs" />
     <Compile Include="Pipeline\Physical\PhysicCalculationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,9 +120,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pipeline\Interpreted\Recognizer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

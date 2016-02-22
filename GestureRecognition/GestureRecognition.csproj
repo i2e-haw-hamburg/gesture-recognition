@@ -93,7 +93,6 @@
     <Compile Include="Implementation\DataContainer.cs" />
     <Compile Include="Implementation\Controller.cs" />
     <Compile Include="Implementation\GestureRecognition.cs" />
-    <Compile Include="Implementation\Pipeline\Task\CheckActiveTask.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\Kristensson\Centroid.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\Kristensson\Distance.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\Kristensson\Geometry.cs" />
@@ -117,6 +116,7 @@
     <Compile Include="Implementation\Pipeline\Physical\PhysicCalculation.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\ITemplate.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\ABasisTemplate.cs" />
+    <Compile Include="Implementation\Pipeline\Task\DecisionTask.cs" />
     <Compile Include="Implementation\Pipeline\Task\PhysicCalculationTask.cs" />
     <Compile Include="Interface\Commands\NoneCommand.cs" />
     <Compile Include="Interface\Commands\ScaleAndRotate.cs" />
@@ -128,13 +128,11 @@
     <Compile Include="Interface\GestureRecognitionFactory.cs" />
     <Compile Include="Interface\IGestureRecognition.cs" />
     <Compile Include="Implementation\Pipeline\IPipeline.cs" />
-    <Compile Include="Implementation\Pipeline\Task\PointExtractionTask.cs" />
     <Compile Include="Interface\Commands\AInterpretedCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\EnumUtility.cs" />
     <Compile Include="Utility\DoubleUtility.cs" />
     <Compile Include="Utility\ListExtension.cs" />
-    <Compile Include="Implementation\Pipeline\Task\DecisionTask.cs" />
     <Compile Include="Implementation\Pipeline\Task\RecognitionTask.cs" />
     <Compile Include="Implementation\Pipeline\Task\SmoothingTask.cs" />
   </ItemGroup>

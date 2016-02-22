@@ -13,15 +13,9 @@ namespace GestureRecognition
 
 		public void Do(BlockingCollection<IEnumerable<Result>> input, Action<AUserCommand> fireNewCommand)
 		{
-			try
+			foreach (var results in input.GetConsumingEnumerable())
 			{
-				foreach (var results in input.GetConsumingEnumerable())
-				{
-                    fireNewCommand(MakeDecision(results).template.Command);
-				}
-			}
-			catch
-			{
+                fireNewCommand(MakeDecision(results).template.Command);
 			}
 		}
 

@@ -4,15 +4,20 @@ using NUnit.Framework;
 namespace GestureRecognitionTest.Pipeline.Task
 {
     [TestFixture]
-    public class CheckActiveTaskTest
+    public class SmoothingTaskTest
     {
         [Test]
-        public void TestNoActivity()
+        public void TestMeanVector3()
         {
             
         }
 
 
+        [Test]
+        public void TestMeanVector4()
+        {
+
+        }
 
     }
 }
