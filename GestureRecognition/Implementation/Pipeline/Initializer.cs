@@ -18,7 +18,6 @@ namespace GestureRecognition.Implementation.Pipeline
         public static IPipeline CreatePipeline(Controller controller, IPipeline pipeline1)
         {
             controller.NewData += pipeline1.OnNewData;
-            pipeline1.Ready += controller.FireNewCommand;
             return pipeline1;
         }
 
@@ -26,7 +25,6 @@ namespace GestureRecognition.Implementation.Pipeline
         {
             controller.NewData += pipeline1.OnNewData;
             pipeline1.Ready += pipeline2.OnNewData;
-            pipeline2.Ready += controller.FireNewCommand;
             return pipeline1;
         }
 
@@ -35,7 +33,6 @@ namespace GestureRecognition.Implementation.Pipeline
             controller.NewData += pipeline1.OnNewData;
             pipeline1.Ready += pipeline2.OnNewData;
             pipeline2.Ready += pipeline3.OnNewData;
-            pipeline3.Ready += controller.FireNewCommand;
             return pipeline1;
         }
 
@@ -45,7 +42,6 @@ namespace GestureRecognition.Implementation.Pipeline
             pipeline1.Ready += pipeline2.OnNewData;
             pipeline2.Ready += pipeline3.OnNewData;
             pipeline3.Ready += pipeline4.OnNewData;
-            pipeline4.Ready += controller.FireNewCommand;
             return pipeline1;
         }
     }

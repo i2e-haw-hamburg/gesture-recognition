@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using GestureRecognition.Implementation.Pipeline;
 using GestureRecognition.Implementation.Pipeline.Interpreted;
 using GestureRecognition.Implementation.Pipeline.Physical;
+using GestureRecognition.Implementation.Pipeline.Task;
 using GestureRecognition.Interface.Commands;
 using Trame;
 
@@ -20,9 +25,9 @@ namespace GestureRecognition.Implementation
         /// The action that should be fired on a new command.
         /// </summary>
         public event Action<AUserCommand> NewCommand;
-        private IPipeline _physicsPipeline;
-        private IPipeline _interpretedPipeline;
-        private DataContainer _dataStream;
+        private readonly BlockingCollection<ISkeleton> _skeletonBuffer;
+        private readonly BlockingCollection<ISkeleton> _skeletonBuffer2;
+        private Thread _thread;
 
         /// <summary>
         /// Setup a controller with the recognizer and a data container instance.
@@ -33,9 +38,25 @@ namespace GestureRecognition.Implementation
         /// <param name="dataStream">the container for all stream data</param>
         public Controller(IRecognizer recognizer, DataContainer dataStream)
         {
-            _physicsPipeline = Initializer.CreatePipeline(this, new PhysicCalculation());
-            _interpretedPipeline = Initializer.CreatePipeline(this, new PointExtractor(), new Matcher(recognizer));
-            _dataStream = dataStream;
+            // tasks
+            var smoothingTask = new SmoothingTask();
+            var recognitionTask = new RecognitionTask(recognizer);
+            var decisionTask = new DecisionTask();
+            var physicsCalculationTask = new PhysicCalculationTask();
+            // buffers
+            _skeletonBuffer = new BlockingCollection<ISkeleton>();
+            _skeletonBuffer2 = new BlockingCollection<ISkeleton>();
+            var secondBuffer = new BlockingCollection<ISkeleton>(1000);
+
+            var f = new TaskFactory(TaskCreationOptions.LongRunning, TaskContinuationOptions.None);
+            // interpreted
+            var smoothing = f.StartNew(() => smoothingTask.Do(_skeletonBuffer, secondBuffer));
+            var recognition = f.StartNew(() => recognitionTask.Do(secondBuffer, FireNewCommand));
+            //var decision = f.StartNew(() => decisionTask.Do(thirdBuffer, FireNewCommand));
+            // physics
+            var physics = f.StartNew(() => physicsCalculationTask.Do(_skeletonBuffer2, FireNewCommand));
+            _thread = new Thread(() => { Task.WaitAll(smoothing, physics, recognition); });
+            _thread.Start();
         }
 
         /// <summary>
@@ -44,23 +65,17 @@ namespace GestureRecognition.Implementation
         /// <param name="skeleton">a new skeleton</param>
         public void PushNewSkeleton(ISkeleton skeleton)
         {
-            _dataStream.Add(skeleton.Clone());
-            if (NewData != null)
-            {
-                NewData(_dataStream);
-            }
+            _skeletonBuffer.Add(skeleton.Clone());
+            _skeletonBuffer2.Add(skeleton.Clone());
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="dataContainer"></param>
-        public void FireNewCommand(DataContainer dataContainer)
+        public void FireNewCommand(AUserCommand command)
         {
-            if (NewCommand != null && dataContainer.HasCommand())
-            {
-                NewCommand(dataContainer.Command);
-            }
+            NewCommand?.Invoke(command);
         }
     }
 }

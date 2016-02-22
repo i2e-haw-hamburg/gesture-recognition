@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Trame;
 
-namespace GestureRecognition.Implementation.Pipeline.Interpreted
+namespace GestureRecognition.Implementation.Pipeline.Task
 {
     /// <summary>
     /// Checks if a stream contains user inactivity and clears the stream if user was inactive.
     /// </summary>
-    public class ActiveChecker : IPipeline
+    public class CheckActiveTask
     {
         public event Action<DataContainer> Ready;
 
@@ -21,7 +22,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
             FireReady(dc);
         }
 
-        private bool NoActivity(List<ISkeleton> stream)
+        public bool NoActivity(List<ISkeleton> stream)
         {
             throw new NotImplementedException();
         }

@@ -9,14 +9,18 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
 {
     public class InputVector
     {
-        private IEnumerable<Vector3> _stream;
+        private IList<Vector3> _stream;
 
-        public InputVector(IEnumerable<Vector3> stream)
+        public InputVector(IList<Vector3> stream)
         {
             Stream = stream;
         }
+        public InputVector()
+        {
+            Stream = new List<Vector3>();
+        }
 
-        public IEnumerable<Vector3> Stream
+        public IList<Vector3> Stream
         {
             get { return _stream; }
             set { _stream = value; }

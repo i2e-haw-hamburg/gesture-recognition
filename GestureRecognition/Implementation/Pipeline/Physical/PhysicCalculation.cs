@@ -14,27 +14,10 @@ namespace GestureRecognition.Implementation.Pipeline.Physical
     /// <summary>
     /// Calculation for physical commands
     /// </summary>
-    class PhysicCalculation : IPipeline
+    class PhysicCalculation
     {
-        public event Action<DataContainer> Ready;
-        public void OnNewData(DataContainer dc)
-        {
-            var newest = dc.Newest;
-            var data = dc.Stream.Where(s => s.ID == newest.ID).Reverse().Take(3).ToList();
-            var cmd = CreatePhysicCommand(data);
-            dc.Command = cmd;
-            FireReadyEvent(dc);
-        }
-
-        private void FireReadyEvent(DataContainer dc)
-        {
-            if (Ready != null)
-            {
-                Ready(dc);
-            }
-        }
-
-        private PhysicCommand CreatePhysicCommand(IList<ISkeleton> newests)
+       
+        public PhysicCommand CreatePhysicCommand(IList<ISkeleton> newests)
         {
             var newestSkeleton = newests.First();
             var prevSkeleton = newests.Count > 1 ? newests[1] : null;
