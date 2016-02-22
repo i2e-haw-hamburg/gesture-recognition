@@ -31,7 +31,7 @@ namespace GestureRecognition
 		/// </summary>
 		/// <param name="results"></param>
 		/// <returns></returns>
-		public Result MakeDecision(IEnumerable<Result> results)
+		public static Result MakeDecision(IEnumerable<Result> results)
 		{
 			var enumerable = results as IList<Result> ?? results.ToList();
 			if (!enumerable.Any())

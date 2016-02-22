@@ -50,25 +50,37 @@ namespace GestureRecognition.Implementation.Pipeline.Task
 		/// </summary>
 		/// <param name="input">Input.</param>
 		/// <param name="output">Output.</param>
-        public void Do(BlockingCollection<ISkeleton> input, BlockingCollection<IEnumerable<Result>> output)
+        public void Do(BlockingCollection<ISkeleton> input, Action<AUserCommand> fireNewCommand)
         {
-            try
+            var data = new Dictionary<JointType, InputVector>();
+            foreach (var skeleton in input.GetConsumingEnumerable())
             {
-                var data = input.GetConsumingEnumerable();
-                var dict = new Dictionary<JointType, InputVector>();
-                foreach (var jt in Enum.GetValues(typeof(JointType)).Cast<JointType>())
+                foreach (var joint in skeleton.Joints)
                 {
-                    var vectors = data.Select(s => s.GetJoint(jt).Point);
-                    if (vectors.Any())
+                    if (!data.ContainsKey(joint.JointType))
                     {
-                        dict.Add(jt, new InputVector(vectors.ToList()));
+                        data.Add(joint.JointType, new InputVector());
                     }
+                    data[joint.JointType].Stream.Add(joint.Point);
                 }
-				output.Add(Recognizer.Recognize(dict));
-            }
-            finally
-            {
-                output.CompleteAdding();
+                if (data.First().Value.Stream.Count < 5)
+                {
+                    continue;
+                }
+                var results = Recognizer.Recognize(data);
+                try
+                {
+                    fireNewCommand(DecisionTask.MakeDecision(results).template.Command);
+                }
+                catch (Exception)
+                {
+                    if (data.First().Value.Stream.Count > 40)
+                    {
+                        data.Clear();
+                    }
+                    continue;
+                }
+                data.Clear();
             }
         }
 		        

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using GestureRecognition.Implementation.Pipeline.Physical;
 using GestureRecognition.Interface.Commands;
+using GestureRecognition.Utility;
 using Trame;
 
 namespace GestureRecognition
@@ -14,14 +16,20 @@ namespace GestureRecognition
 
 		public void Do(BlockingCollection<ISkeleton> input, Action<AUserCommand> fireNewCommand)
 		{
+            var skeletons = new List<ISkeleton>();
 			try
 			{
-			    var skeletons = input.GetConsumingEnumerable();
-                var data = skeletons
-                    .Reverse()
-                    .Take(3)
-                    .ToList();
-                fireNewCommand(_physicCalculation.CreatePhysicCommand(data));
+			    foreach (var skeleton in input.GetConsumingEnumerable())
+			    {
+                    skeletons.Add(skeleton);
+                    if (skeletons.Count < 3)
+			        {
+                        continue;
+			        }
+			        var data = Enumerable.Reverse(skeletons).Take(3).ToList();
+                    fireNewCommand(_physicCalculation.CreatePhysicCommand(data));
+                    skeletons.RemoveAt(0);
+                }
 			}
 			catch
 			{

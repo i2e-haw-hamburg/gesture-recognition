@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using GestureRecognition.Implementation.Pipeline;
 using GestureRecognition.Implementation.Pipeline.Interpreted;
@@ -26,6 +27,7 @@ namespace GestureRecognition.Implementation
         public event Action<AUserCommand> NewCommand;
         private readonly BlockingCollection<ISkeleton> _skeletonBuffer;
         private readonly BlockingCollection<ISkeleton> _skeletonBuffer2;
+        private Thread _thread;
 
         /// <summary>
         /// Setup a controller with the recognizer and a data container instance.
@@ -44,15 +46,17 @@ namespace GestureRecognition.Implementation
             // buffers
             _skeletonBuffer = new BlockingCollection<ISkeleton>();
             _skeletonBuffer2 = new BlockingCollection<ISkeleton>();
-            var secondBuffer = new BlockingCollection<ISkeleton>();
-            var thirdBuffer = new BlockingCollection<IEnumerable<Result>>();
-            var results = new BlockingCollection<Result>();
+            var secondBuffer = new BlockingCollection<ISkeleton>(1000);
 
             var f = new TaskFactory(TaskCreationOptions.LongRunning, TaskContinuationOptions.None);
+            // interpreted
             var smoothing = f.StartNew(() => smoothingTask.Do(_skeletonBuffer, secondBuffer));
+            var recognition = f.StartNew(() => recognitionTask.Do(secondBuffer, FireNewCommand));
+            //var decision = f.StartNew(() => decisionTask.Do(thirdBuffer, FireNewCommand));
+            // physics
             var physics = f.StartNew(() => physicsCalculationTask.Do(_skeletonBuffer2, FireNewCommand));
-            var recognition = f.StartNew(() => recognitionTask.Do(secondBuffer, thirdBuffer));
-            var decision = f.StartNew(() => decisionTask.Do(thirdBuffer, FireNewCommand));
+            _thread = new Thread(() => { Task.WaitAll(smoothing, physics, recognition); });
+            _thread.Start();
         }
 
         /// <summary>

@@ -26,24 +26,29 @@ namespace GestureRecognition
 		/// <param name="input">Input.</param>
 		/// <param name="output">Output.</param>
 		public void Do(BlockingCollection<ISkeleton> input, BlockingCollection<ISkeleton> output)
-		{
-			try
+        {
+            var skeletons = new List<ISkeleton>();
+            try
 			{
-				var skeletons = input.GetConsumingEnumerable();
-				var skeletonWindows = skeletons.ChunkBy(WindowSize);
-				foreach (var window in skeletonWindows)
-				{
-				    var first = window.First();
-				    var tail = window.Skip(1);
-				    foreach (var joint in first.Joints)
-				    {
-				        var tailJoints = tail.Select(s => s.GetJoint(joint.JointType));
-				        joint.Point = Mean(new List<Vector3> {joint.Point}.Concat(tailJoints.Select(j => j.Point)).ToList());
+			    foreach (var skeleton in input.GetConsumingEnumerable())
+			    {
+                    skeletons.Add(skeleton);
+			        if (skeletons.Count < 3)
+			        {
+			            continue;
+			        }
+                    var first = skeletons.First();
+                    var tail = skeletons.Skip(1);
+                    foreach (var joint in first.Joints)
+                    {
+                        var tailJoints = tail.Select(s => s.GetJoint(joint.JointType));
+                        joint.Point = Mean(new List<Vector3> { joint.Point }.Concat(tailJoints.Select(j => j.Point)).ToList());
                         joint.Orientation = Mean(new List<Vector4> { joint.Orientation }.Concat(tailJoints.Select(j => j.Orientation)).ToList());
                         first.UpdateSkeleton(joint.JointType, joint);
-				    }
-					output.Add(first);
-				}
+                    }
+                    output.Add(first);
+                    skeletons.Clear();
+                }
 			}
 			finally
 			{
