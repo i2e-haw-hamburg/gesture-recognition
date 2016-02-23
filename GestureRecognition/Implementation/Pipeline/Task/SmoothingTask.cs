@@ -60,22 +60,22 @@ namespace GestureRecognition
 		/// Mean the specified vectorList.
 		/// </summary>
 		/// <param name="vectorList">Vector list.</param>
-		public Vector3 Mean(IList<Vector3> vectorList)
+		public static Vector3 Mean(IList<Vector3> vectorList)
 		{
 			var first = vectorList.FirstOrDefault();
 			var last = vectorList.LastOrDefault();
-			return last + (last - first)/vectorList.Count;
+			return first + (last - first)/vectorList.Count;
 		}
 
         /// <summary>
         /// Mean the specified vectorList.
         /// </summary>
         /// <param name="vectorList">Vector list.</param>
-        public Vector4 Mean(IList<Vector4> vectorList)
+        public static Vector4 Mean(IList<Vector4> vectorList)
         {
             var first = vectorList.FirstOrDefault();
             var last = vectorList.LastOrDefault();
-            return last + (last - first) / vectorList.Count;
+            return first + (last - first) / vectorList.Count;
         }
     }
 }
