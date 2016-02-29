@@ -15,7 +15,12 @@ namespace GestureRecognition
 		{
 			foreach (var results in input.GetConsumingEnumerable())
 			{
-                fireNewCommand(MakeDecision(results).template.Command);
+			    try
+			    {
+                    fireNewCommand(MakeDecision(results).template.Command);
+                }
+			    catch (Exception)
+			    {}
 			}
 		}
 

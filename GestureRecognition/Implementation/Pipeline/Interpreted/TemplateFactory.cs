@@ -22,8 +22,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
             {
                 CreateTemplate<ScaleAndRotateGesture, ScaleAndRotate>(),
                 CreateTemplate<ExplodeGesture, ExplodeCommand>(),
-                CreateTemplate<ImplodeGesture, ImplodeCommand>(),
-                CreateTemplate<SamuraiGesture, SamuraiCommand>()
+                CreateTemplate<ImplodeGesture, ImplodeCommand>()
             };
         }
         
