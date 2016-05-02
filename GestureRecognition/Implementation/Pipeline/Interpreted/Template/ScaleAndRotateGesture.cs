@@ -40,7 +40,8 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
             var isOld = leftHand.Stream.Count() >= (CountOfFrames / frameSize);
             var box = BoundaryBox.Create(center.First - new Vector3(0.6, -0.1, 0.2), 0.8, 0.5, 0.5);
             // check boundary box
-            return isOld && box.IsIn(leftHand.Last) && box.IsIn(rightHand.Last) ? 1 : 0.1;
+            return 1;
+            // return isOld && box.IsIn(leftHand.Last) && box.IsIn(rightHand.Last) ? 1 : 0.1;
         }
 
         public override double StartCondition(IDictionary<JointType, InputVector> input)
@@ -50,7 +51,8 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Template
             var center = input[JointType.CENTER];
             var box = BoundaryBox.Create(center.First - new Vector3(0.6, -0.1, 0.2), 0.8, 0.5, 0.5);
             // check boundary box
-            return box.IsIn(leftHand.First) && box.IsIn(rightHand.First) ? 1 : 0.1;
+            return 1;
+            // return box.IsIn(leftHand.First) && box.IsIn(rightHand.First) ? 1 : 0.1;
         }
 
         public override double MotionCharacteristic(IDictionary<JointType, InputVector> input)

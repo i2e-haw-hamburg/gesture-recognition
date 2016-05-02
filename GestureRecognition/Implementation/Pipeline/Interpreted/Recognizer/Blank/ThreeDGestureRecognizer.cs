@@ -25,7 +25,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Blank
             return _templates.Select(t => new Result(t, ProbabilityCalculation(t, input), input));
         }
 
-        private double ProbabilityCalculation(ITemplate template, IDictionary<JointType, InputVector> input)
+        public static double ProbabilityCalculation(ITemplate template, IDictionary<JointType, InputVector> input)
         {
             var end = template.EndCondition(input);
             var start = template.StartCondition(input);

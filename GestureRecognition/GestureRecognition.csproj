@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -41,6 +41,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -51,6 +53,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -61,6 +64,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -71,6 +76,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -79,16 +85,47 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TrameSkeleton, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TrameSkeleton, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\i2e.trame.skeleton.0.3.2\lib\net35\TrameSkeleton.dll</HintPath>
-      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\DataContainer.cs" />
     <Compile Include="Implementation\Controller.cs" />
     <Compile Include="Implementation\GestureRecognition.cs" />
-    <Compile Include="Implementation\Pipeline\Interpreted\ActiveChecker.cs" />
+    <Compile Include="Implementation\Leap\LeapGestureController.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Arm.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Bone.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\CircularObjectBuffer.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Config.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Connection.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Controller.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\CSharpExtensions.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Device.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\DeviceList.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\DistortionData.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\DistortionDictionary.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Events.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\FailedDevice.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\FailedDeviceList.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Finger.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Frame.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Hand.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\IController.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Image.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\ImageData.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\ImageFuture.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\InteractionBox.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\LeapC.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Logger.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Matrix.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\MessageSeverity.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\ObjectPool.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\PendingImages.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\PooledObject.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\ServiceFrameFactory.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\StructMarshal.cs" />
+    <Compile Include="Implementation\Leap\LeapSDK\Vector.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\Kristensson\Centroid.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\Kristensson\Distance.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\Kristensson\Geometry.cs" />
@@ -105,13 +142,13 @@
     <Compile Include="Implementation\Pipeline\Interpreted\Template\ScaleAndRotateGesture.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\Blank\ThreeDGestureRecognizer.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\Kristensson\ContinuousGestureRecognizer.cs" />
-    <Compile Include="Implementation\Pipeline\Initializer.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\InputVector.cs" />
-    <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\IRecognizer.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\Sequence.cs" />
     <Compile Include="Implementation\Pipeline\Physical\PhysicCalculation.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\ITemplate.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\ABasisTemplate.cs" />
+    <Compile Include="Implementation\Pipeline\Task\DecisionTask.cs" />
+    <Compile Include="Implementation\Pipeline\Task\PhysicCalculationTask.cs" />
     <Compile Include="Interface\Commands\NoneCommand.cs" />
     <Compile Include="Interface\Commands\ScaleAndRotate.cs" />
     <Compile Include="Interface\Commands\PhysicCommand.cs" />
@@ -120,15 +157,17 @@
     <Compile Include="Interface\Commands\ImplodeCommand.cs" />
     <Compile Include="Interface\Commands\AUserCommand.cs" />
     <Compile Include="Interface\GestureRecognitionFactory.cs" />
+    <Compile Include="Interface\IController.cs" />
     <Compile Include="Interface\IGestureRecognition.cs" />
     <Compile Include="Implementation\Pipeline\IPipeline.cs" />
-    <Compile Include="Implementation\Pipeline\Interpreted\Matcher.cs" />
-    <Compile Include="Implementation\Pipeline\Interpreted\PointExtractor.cs" />
     <Compile Include="Interface\Commands\AInterpretedCommand.cs" />
+    <Compile Include="Interface\IRecognizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\EnumUtility.cs" />
     <Compile Include="Utility\DoubleUtility.cs" />
     <Compile Include="Utility\ListExtension.cs" />
+    <Compile Include="Implementation\Pipeline\Task\RecognitionTask.cs" />
+    <Compile Include="Implementation\Pipeline\Task\SmoothingTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GestureRecognition.nuspec" />
