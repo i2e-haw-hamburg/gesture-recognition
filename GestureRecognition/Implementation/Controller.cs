@@ -7,6 +7,7 @@ using GestureRecognition.Implementation.Pipeline;
 using GestureRecognition.Implementation.Pipeline.Interpreted;
 using GestureRecognition.Implementation.Pipeline.Physical;
 using GestureRecognition.Implementation.Pipeline.Task;
+using GestureRecognition.Interface;
 using GestureRecognition.Interface.Commands;
 using Trame;
 
@@ -15,12 +16,8 @@ namespace GestureRecognition.Implementation
     /// <summary>
     /// The controller handles the data stream and holds the pipelines for interpreted and physical gestures.
     /// </summary>
-    public class Controller
+    public class Controller : IController
     {
-        /// <summary>
-        /// The action that should be fired on new data.
-        /// </summary>
-        public event Action<DataContainer> NewData;
         /// <summary>
         /// The action that should be fired on a new command.
         /// </summary>
@@ -35,8 +32,7 @@ namespace GestureRecognition.Implementation
         /// Creates the pipelines for physical and interpreted gestures.
         /// </summary>
         /// <param name="recognizer">the recognizer</param>
-        /// <param name="dataStream">the container for all stream data</param>
-        public Controller(IRecognizer recognizer, DataContainer dataStream)
+        public Controller(IRecognizer recognizer)
         {
             // tasks
             var smoothingTask = new SmoothingTask();

@@ -23,17 +23,17 @@ namespace GestureRecognition.Implementation
         /// <summary>
         /// The current controller.
         /// </summary>
-        private readonly Controller _controller;
+        private readonly IController _controller;
 
         /// <summary>
         /// Creates the gesture recognition. The given controller will be stored for later use and
         /// an handler for the NewCommand event in the controller is registered.
         /// </summary>
         /// <param name="controller">the controller for the gesture recognition</param>
-        public GestureRecognition(Controller controller)
+        public GestureRecognition(IController controller)
         {
             _controller = controller;
-            controller.NewCommand += FireNewCommand;
+            _controller.NewCommand += FireNewCommand;
         }
 
         private void FireNewCommand(AUserCommand cmd)

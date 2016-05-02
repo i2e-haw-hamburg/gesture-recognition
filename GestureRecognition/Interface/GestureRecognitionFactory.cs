@@ -16,8 +16,12 @@ namespace GestureRecognition.Interface
         /// <returns></returns>
         public static IGestureRecognition Create(IRecognizer recognizer)
         {
-            var dataStream = new DataContainer();
-            var controller = new Controller(recognizer, dataStream);
+            var controller = new Controller(recognizer);
+            return new Implementation.GestureRecognition(controller);
+        }
+
+        public static IGestureRecognition Create(IController controller)
+        {
             return new Implementation.GestureRecognition(controller);
         }
 
