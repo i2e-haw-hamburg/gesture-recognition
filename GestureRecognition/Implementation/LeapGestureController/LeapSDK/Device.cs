@@ -34,7 +34,7 @@ namespace Leap
      * Constructs a default Device object.
      *
      * Get valid Device objects from a DeviceList object obtained using the
-     * Controller::devices() method.
+     * TrameGestureController::devices() method.
      *
      * \include Device_Device.txt
      *

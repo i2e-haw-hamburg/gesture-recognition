@@ -753,7 +753,7 @@ namespace LeapInternal
      *
      * \include Controller_devices.txt
      *
-     * Currently, the Leap Motion Controller only allows a single active device at a time,
+     * Currently, the Leap Motion TrameGestureController only allows a single active device at a time,
      * however there may be multiple devices physically attached and listed here.  Any active
      * device(s) are guaranteed to be listed first, however order is not determined beyond that.
      *

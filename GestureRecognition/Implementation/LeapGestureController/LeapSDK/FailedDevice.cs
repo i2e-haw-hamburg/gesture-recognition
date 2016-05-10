@@ -17,9 +17,9 @@ namespace Leap
    * correctly.
    *
    * Failed devices do not provide any tracking data and do not show up in the
-   * Controller:devices() list.
+   * TrameGestureController:devices() list.
    *
-   * Get the list of failed devices using Controller::failedDevices().
+   * Get the list of failed devices using TrameGestureController::failedDevices().
    *
    * \include FailedDevice_class.txt
    *

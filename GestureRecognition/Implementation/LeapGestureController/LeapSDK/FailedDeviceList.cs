@@ -17,7 +17,7 @@ namespace Leap
    * hardware device connected to the client computer. FailedDevice objects report
    * the device pnpID string and reason for failure.
    *
-   * Get the list of FailedDevice objects from Controller::failedDevices().
+   * Get the list of FailedDevice objects from TrameGestureController::failedDevices().
    *
    * @since 3.0
    */

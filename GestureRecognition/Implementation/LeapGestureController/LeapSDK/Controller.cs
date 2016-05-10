@@ -17,11 +17,11 @@ namespace Leap
   using LeapInternal;
 
   /**
-   * The Controller class is your main interface to the Leap Motion Controller.
+   * The TrameGestureController class is your main interface to the Leap Motion TrameGestureController.
    *
-   * Create an instance of this Controller class to access frames of tracking
+   * Create an instance of this TrameGestureController class to access frames of tracking
    * data and configuration information. Frame data can be polled at any time
-   * using the Controller::frame() function. Call frame() or frame(0) to get the
+   * using the TrameGestureController::frame() function. Call frame() or frame(0) to get the
    * most recent frame. Set the history parameter to a positive integer to access
    * previous frames. A controller stores up to 60 frames in its frame history.
    *
@@ -107,7 +107,7 @@ namespace Leap
     */
     public event EventHandler<DeviceEventArgs> DeviceLost;
     /**
-    * Dispatched when an image is ready. Call Controller.RequestImage()
+    * Dispatched when an image is ready. Call TrameGestureController.RequestImage()
     * to request that an image be sent to your application.
     * @since 3.0
     */
@@ -169,7 +169,7 @@ namespace Leap
     }
 
     /**
-    * Constructs a Controller object.
+    * Constructs a TrameGestureController object.
     *
     * The default constructor uses a connection key of 0.
     *
@@ -180,7 +180,7 @@ namespace Leap
     }
 
     /**
-     * Constructs a Controller object using the specified connection key.
+     * Constructs a TrameGestureController object using the specified connection key.
      *
      * All controller instances using the same key will use the same connection
      * to the serivce. In general, an application should not use more than one connection
@@ -326,7 +326,7 @@ namespace Leap
      *
      * Policy changes are completed asynchronously and, because they are subject
      * to user approval or system compatibility checks, may not complete successfully. Call
-     * Controller::isPolicySet() after a suitable interval to test whether
+     * TrameGestureController::isPolicySet() after a suitable interval to test whether
      * the change was accepted.
      *
      * \include Controller_setPolicy.txt
@@ -344,7 +344,7 @@ namespace Leap
      *
      * Policy changes are completed asynchronously and, because they are subject
      * to user approval or system compatibility checks, may not complete successfully. Call
-     * Controller::isPolicySet() after a suitable interval to test whether
+     * TrameGestureController::isPolicySet() after a suitable interval to test whether
      * the change was accepted.
      *
      * \include Controller_clearPolicy.txt
@@ -383,7 +383,7 @@ namespace Leap
     /**
      * @if UNITY
      * In most cases you should get Frame objects using the LeapProvider::CurrentFrame
-     * properties. The data in Frame objects taken directly from a Leap.Controller instance
+     * properties. The data in Frame objects taken directly from a Leap.TrameGestureController instance
      * is still in the Leap Motion frame of reference and will not match the hands
      * displayed in a Unity scene.
      * @endif
@@ -443,10 +443,10 @@ namespace Leap
     }
 
     /**
-     * Reports whether this Controller is connected to the Leap Motion service and
+     * Reports whether this TrameGestureController is connected to the Leap Motion service and
      * the Leap Motion hardware is plugged in.
      *
-     * When you first create a Controller object, isConnected() returns false.
+     * When you first create a TrameGestureController object, isConnected() returns false.
      * After the controller finishes initializing and connects to the Leap Motion
      * software and if the Leap Motion hardware is plugged in, isConnected() returns true.
      *
@@ -471,7 +471,7 @@ namespace Leap
      * Returns a Config object, which you can use to query the Leap Motion system for
      * configuration information.
      *
-     * @returns The Controller's Config object.
+     * @returns The TrameGestureController's Config object.
      * @since 1.0
      */
     public Config Config
@@ -492,7 +492,7 @@ namespace Leap
      *
      * \include Controller_devices.txt
      *
-     * Currently, the Leap Motion Controller only allows a single active device at a time,
+     * Currently, the Leap Motion TrameGestureController only allows a single active device at a time,
      * however there may be multiple devices physically attached and listed here.  Any active
      * device(s) are guaranteed to be listed first, however order is not determined beyond that.
      *
