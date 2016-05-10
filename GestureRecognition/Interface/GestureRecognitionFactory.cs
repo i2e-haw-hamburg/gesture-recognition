@@ -1,6 +1,7 @@
 ﻿using GestureRecognition.Implementation;
 using GestureRecognition.Implementation.Pipeline.Interpreted;
 using GestureRecognition.Implementation.Pipeline.Interpreted.Blank;
+using GestureRecognition.Implementation.TrameGestureController;
 
 namespace GestureRecognition.Interface
 {
@@ -16,7 +17,7 @@ namespace GestureRecognition.Interface
         /// <returns></returns>
         public static IGestureRecognition Create(IRecognizer recognizer)
         {
-            var controller = new Controller(recognizer);
+            var controller = new TrameGestureController(recognizer);
             return new Implementation.GestureRecognition(controller);
         }
 

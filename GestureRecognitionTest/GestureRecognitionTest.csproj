@@ -87,8 +87,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TrameSkeleton">
-      <HintPath>..\packages\i2e.trame.skeleton.0.4.0\lib\net35\TrameSkeleton.dll</HintPath>
+    <Reference Include="TrameSkeleton, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\i2e.trame.skeleton.0.5.0\lib\net35\TrameSkeleton.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -98,9 +99,9 @@
     <Compile Include="Pipeline\Interpreted\Template\ImplodeGestureTest.cs" />
     <Compile Include="Pipeline\Interpreted\Template\ScaleAndRotateGestureTest.cs" />
     <Compile Include="Pipeline\Interpreted\Template\SequenceTest.cs" />
-    <Compile Include="Pipeline\Task\SmoothingTaskTest.cs" />
-    <Compile Include="Pipeline\Task\DecisionTaskTest.cs" />
-    <Compile Include="Pipeline\Task\RecognitionTaskTest.cs" />
+    <Compile Include="Pipeline\Tasks\SmoothingTaskTest.cs" />
+    <Compile Include="Pipeline\Tasks\DecisionTaskTest.cs" />
+    <Compile Include="Pipeline\Tasks\RecognitionTaskTest.cs" />
     <Compile Include="Pipeline\Interpreted\ResultTest.cs" />
     <Compile Include="Pipeline\Physical\PhysicCalculationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

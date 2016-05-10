@@ -169,7 +169,7 @@ namespace Leap
      * A unique ID assigned to this Finger object, whose value remains the
      * same across consecutive frames while the tracked finger or tool remains
      * visible. If tracking is lost (for example, when a finger is occluded by
-     * another finger or when it is withdrawn from the Leap Motion Controller field of view), the
+     * another finger or when it is withdrawn from the Leap Motion TrameGestureController field of view), the
      * Leap Motion software may assign a new ID when it detects the entity in a future frame.
      *
      * \include Finger_id.txt
@@ -286,7 +286,7 @@ namespace Leap
     public Vector StabilizedTipPosition { get; private set; }
 
     /**
-     * The duration of time this Finger has been visible to the Leap Motion Controller.
+     * The duration of time this Finger has been visible to the Leap Motion TrameGestureController.
      *
      * \include Finger_timeVisible.txt
      *

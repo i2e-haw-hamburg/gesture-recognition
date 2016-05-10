@@ -27,10 +27,10 @@ namespace Leap
     /**
      * Creates a new Config object for setting runtime configuration settings.
      *
-     * Note that the Controller.Config provides a properly initialized Config object already.
+     * Note that the TrameGestureController.Config provides a properly initialized Config object already.
      *
      * @param connectionKey The id of the connnection. This id must match the key used to create
-     * the Controller.
+     * the TrameGestureController.
      * @since 3.0
      */
     public Config(int connectionKey)

@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using GestureRecognition.Implementation.Pipeline.Interpreted;
+using GestureRecognition.Implementation.Task;
 using GestureRecognition.Interface.Commands;
 using Leap;
 using Trame;
@@ -12,11 +17,24 @@ namespace GestureRecognition.Implementation
 {
     public class LeapGestureController : IController
     {
-        public event Action<AUserCommand> NewCommand;
+        public event Action<AUserCommand> NewPhysicsCommand;
+        public event Action<IEnumerable<Result>> NewMotions;
+
+        private readonly BlockingCollection<Frame> _frameBuffer;
+
         private Leap.Controller controller;
+        private Thread _thread;
 
         public LeapGestureController()
         {
+            // buffers
+            _frameBuffer = new BlockingCollection<Frame>();
+            var recognitionTask = new MotionRecognitionTask();
+            var f = new TaskFactory(TaskCreationOptions.LongRunning, TaskContinuationOptions.None);
+            // interpreted
+            var recognition = f.StartNew(() => recognitionTask.Do(_frameBuffer, FireNewMotions));
+            _thread = new Thread(() => { System.Threading.Tasks.Task.WaitAll(recognition); });
+            _thread.Start();
             controller = new Leap.Controller();
             controller.FrameReady += (sender, args) => this.NewFrameAvailable(args.frame);
         }
@@ -36,13 +54,19 @@ namespace GestureRecognition.Implementation
                 }
                 FireNewCommand(physicsCmd);
             }
+            if (frame.Hands.Count == 2)
+            {
+                var leftHand = frame.Hands.Find(h => h.IsLeft);
+                var rightHand = frame.Hands.Find(h => h.IsRight);
+            }
         }
-        
+
         /// <summary>
         /// Lefts the hand.
         /// </summary>
         /// <returns>The hand.</returns>
-        /// <param name="leftHand">Frame.</param>
+        /// <param name="hand">Frame.</param>
+        /// <param name="jt"></param>
         private static IEnumerable<BodyPart> CreateHand(Hand hand, JointType jt)
         {
             var palmNormal = hand.PalmNormal;
@@ -58,20 +82,47 @@ namespace GestureRecognition.Implementation
             parts.AddRange(
                 hand.Fingers.Select(
                     finger => CreateFinger(finger, FingerType2JointType(finger.Type, JointType.HAND_LEFT == jt ? 1 : -1))
-                )
+                ).SelectMany(x => x)
             );
             return parts;
         }
 
-        private static BodyPart CreateFinger(Finger finger, JointType jt)
+        private static IEnumerable<BodyPart> CreateFinger(Finger finger, JointType jt)
         {
-            return new BodyPart
+            var bones = Enum.GetValues(typeof (Bone.BoneType)).Cast<Bone.BoneType>()
+                .Select<Bone.BoneType, Bone>(finger.Bone)
+                .Where(bone => bone != null);
+            return bones.Select(bone => new BodyPart
             {
-                Id = jt.ToInt(),
-                Position = new Vector3(finger.TipPosition.x, finger.TipPosition.y, finger.TipPosition.z),
-                Rotation = new Vector4(finger.Direction.x, finger.Direction.y, finger.Direction.z, 0),
-                Velocity = new Vector3(finger.TipVelocity.x, finger.TipVelocity.y, finger.TipVelocity.z)
-            };
+                Id = BoneType2JointType(jt, bone.Type).ToInt(),
+                Position = new Vector3(bone.PrevJoint.x, bone.PrevJoint.y, bone.PrevJoint.z),
+                Rotation = new Vector4(bone.Direction.x, bone.Direction.y, bone.Direction.z, 0),
+                Length = bone.Length
+            });
+        }
+
+        private static JointType BoneType2JointType(JointType fingerType, Bone.BoneType type)
+        {
+            int jt;
+            switch (type)
+            {
+                case Bone.BoneType.TYPE_METACARPAL:
+                    jt = 1;
+                    break;
+                case Bone.BoneType.TYPE_PROXIMAL:
+                    jt = 2;
+                    break;
+                case Bone.BoneType.TYPE_INTERMEDIATE:
+                    jt = 3;
+                    break;
+                case Bone.BoneType.TYPE_DISTAL:
+                    jt = 4;
+                    break;
+                default:
+                    return JointType.UNSPECIFIED;
+            }
+            jt += fingerType.ToInt();
+            return (JointType) jt;
         }
 
         private static JointType FingerType2JointType(Finger.FingerType type, int side)
@@ -104,10 +155,19 @@ namespace GestureRecognition.Implementation
         
         private void FireNewCommand(AUserCommand cmd)
         {
-            if (NewCommand != null)
+            if (NewPhysicsCommand != null)
             {
-                NewCommand(cmd);
+                NewPhysicsCommand(cmd);
             }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dataContainer"></param>
+        public void FireNewMotions(IEnumerable<Result> results)
+        {
+            NewMotions?.Invoke(results);
         }
 
         public void PushNewSkeleton(ISkeleton skeleton) {}

@@ -3,11 +3,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using GestureRecognition.Implementation.Pipeline.Interpreted;
-using GestureRecognition.Interface.Commands;
 using Trame;
-using TrameSkeleton.Math;
 
-namespace GestureRecognition.Implementation.Pipeline.Task
+namespace GestureRecognition.Implementation.TrameGestureController.Tasks
 {
     /// <summary>
     /// This class provides the recognizer and matches recognized templates with the best suited command.
@@ -50,7 +48,7 @@ namespace GestureRecognition.Implementation.Pipeline.Task
 		/// </summary>
 		/// <param name="input">Input.</param>
 		/// <param name="output">Output.</param>
-        public void Do(BlockingCollection<ISkeleton> input, Action<AUserCommand> fireNewCommand)
+        public void Do(BlockingCollection<ISkeleton> input, Action<IEnumerable<Result>> fireNewCommand)
         {
             var data = new Dictionary<JointType, InputVector>();
             foreach (var skeleton in input.GetConsumingEnumerable())
@@ -70,7 +68,7 @@ namespace GestureRecognition.Implementation.Pipeline.Task
                 var results = Recognizer.Recognize(data);
                 try
                 {
-                    fireNewCommand(DecisionTask.MakeDecision(results).template.Command);
+                    fireNewCommand(results);
                 }
                 catch (Exception)
                 {

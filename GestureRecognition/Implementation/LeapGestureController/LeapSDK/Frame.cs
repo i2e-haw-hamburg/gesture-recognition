@@ -20,7 +20,7 @@ namespace Leap
    * The Leap Motion software detects hands, fingers and tools within the tracking area, reporting
    * their positions, orientations, gestures, and motions in frames at the Leap Motion frame rate.
    *
-   * Access Frame objects through an instance of the Controller class:
+   * Access Frame objects through an instance of the TrameGestureController class:
    *
    * \include Controller_Frame_1.txt
    *
@@ -34,7 +34,7 @@ namespace Leap
      * Constructs a Frame object.
      *
      * Frame instances created with this constructor are invalid.
-     * Get valid Frame objects by calling the Controller::frame() function.
+     * Get valid Frame objects by calling the TrameGestureController::frame() function.
      *
      * \include Frame_Frame.txt
      *
@@ -113,7 +113,7 @@ namespace Leap
     /**
      * Decodes a byte string to replace the properties of this Frame.
      *
-     * A Controller object must be instantiated for this function to succeed, but
+     * A TrameGestureController object must be instantiated for this function to succeed, but
      * it does not need to be connected. To extract gestures from the deserialized
      * frame, you must enable the appropriate gestures first.
      *
@@ -216,7 +216,7 @@ namespace Leap
      * The frame capture time in microseconds elapsed since an arbitrary point in
      * time in the past.
      *
-     * Use Controller::now() to calculate the age of the frame.
+     * Use TrameGestureController::now() to calculate the age of the frame.
      *
      * \include Frame_timestamp.txt
      *
@@ -235,7 +235,7 @@ namespace Leap
      *
      * \include Frame_currentFramesPerSecond.txt
      *
-     * @returns An estimate of frames per second of the Leap Motion Controller.
+     * @returns An estimate of frames per second of the Leap Motion TrameGestureController.
      * @since 1.0
      */
     public float CurrentFramesPerSecond { get; private set; }

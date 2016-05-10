@@ -1,9 +1,8 @@
-﻿using GestureRecognition.Implementation.Pipeline.Interpreted;
-using GestureRecognition.Implementation.Pipeline.Interpreted.Blank;
-using GestureRecognition.Implementation.Pipeline.Task;
+﻿using GestureRecognition.Implementation.Pipeline.Interpreted.Blank;
+using GestureRecognition.Implementation.TrameGestureController.Tasks;
 using NUnit.Framework;
 
-namespace GestureRecognitionTest.Pipeline.Task
+namespace GestureRecognitionTest.Pipeline.Tasks
 {
     [TestFixture]
     public class RecognitionTaskTest

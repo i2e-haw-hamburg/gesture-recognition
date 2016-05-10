@@ -16,7 +16,7 @@ namespace Leap
   /**
    * The DeviceList class represents a list of Device objects.
    *
-   * Get a DeviceList object by calling Controller::devices().
+   * Get a DeviceList object by calling TrameGestureController::devices().
    * @since 1.0
    */
   public class DeviceList:

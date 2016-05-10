@@ -26,14 +26,22 @@ namespace GestureRecognition.Implementation
         private readonly IController _controller;
 
         /// <summary>
+        /// The current decider for interpreted gestures
+        /// </summary>
+        private readonly IDecider _decider;
+
+        /// <summary>
         /// Creates the gesture recognition. The given controller will be stored for later use and
-        /// an handler for the NewCommand event in the controller is registered.
+        /// an handler for the NewPhysicsCommand event in the controller is registered.
         /// </summary>
         /// <param name="controller">the controller for the gesture recognition</param>
         public GestureRecognition(IController controller)
         {
             _controller = controller;
-            _controller.NewCommand += FireNewCommand;
+            _decider = new Decider();
+            _decider.NewInterpretedCommand += FireNewCommand;
+            _controller.NewPhysicsCommand += FireNewCommand;
+            _controller.NewMotions += _decider.Decide;
         }
 
         private void FireNewCommand(AUserCommand cmd)

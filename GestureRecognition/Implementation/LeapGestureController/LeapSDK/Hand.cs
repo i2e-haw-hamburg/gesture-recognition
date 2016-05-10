@@ -218,7 +218,7 @@ namespace Leap
      * A unique ID assigned to this Hand object, whose value remains the same
      * across consecutive frames while the tracked hand remains visible. If
      * tracking is lost (for example, when a hand is occluded by another hand
-     * or when it is withdrawn from or reaches the edge of the Leap Motion Controller field of view),
+     * or when it is withdrawn from or reaches the edge of the Leap Motion TrameGestureController field of view),
      * the Leap Motion software may assign a new ID when it detects the hand in a future frame.
      *
      * Use the ID value with the Frame::hand() function to find this Hand object
@@ -246,7 +246,7 @@ namespace Leap
 
 
     /**
-     * The center position of the palm in millimeters from the Leap Motion Controller origin.
+     * The center position of the palm in millimeters from the Leap Motion TrameGestureController origin.
      *
      * \include Hand_palmPosition.txt
      *
@@ -429,7 +429,7 @@ namespace Leap
     public Vector WristPosition { get; private set; }
 
     /**
-     * The duration of time this Hand has been visible to the Leap Motion Controller.
+     * The duration of time this Hand has been visible to the Leap Motion TrameGestureController.
      *
      * \include Hand_timeVisible.txt
      *

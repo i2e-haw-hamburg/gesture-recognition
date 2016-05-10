@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Trame;
 using TrameSkeleton.Math;
-using GestureRecognition.Utility;
-using Trame.Implementation.Skeleton;
 
-namespace GestureRecognition
+namespace GestureRecognition.Implementation.TrameGestureController.Tasks
 {
 	/// <summary>
 	/// Smoothing task.

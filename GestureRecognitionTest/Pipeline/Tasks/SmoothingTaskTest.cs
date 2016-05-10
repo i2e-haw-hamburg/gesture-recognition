@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using GestureRecognition;
-using GestureRecognition.Implementation.Pipeline.Interpreted;
+using GestureRecognition.Implementation.TrameGestureController.Tasks;
 using NUnit.Framework;
 using TrameSkeleton.Math;
 
-namespace GestureRecognitionTest.Pipeline.Task
+namespace GestureRecognitionTest.Pipeline.Tasks
 {
     [TestFixture]
     public class SmoothingTaskTest

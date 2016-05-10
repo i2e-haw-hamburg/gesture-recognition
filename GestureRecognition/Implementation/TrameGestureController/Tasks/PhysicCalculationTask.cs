@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using GestureRecognition.Implementation.Pipeline.Physical;
 using GestureRecognition.Interface.Commands;
-using GestureRecognition.Utility;
 using Trame;
 
-namespace GestureRecognition
+namespace GestureRecognition.Implementation.TrameGestureController.Tasks
 {
 	public class PhysicCalculationTask
 	{
