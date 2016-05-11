@@ -79,6 +79,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LeapCSharp.NET4.5, Version=3.1.2.0, Culture=neutral, PublicKeyToken=6e1b1368e71eba9b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\LeapCSharp.NET4.5.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -96,38 +100,6 @@
     <Compile Include="Implementation\TrameGestureController\TrameGestureController.cs" />
     <Compile Include="Implementation\GestureRecognition.cs" />
     <Compile Include="Implementation\LeapGestureController\LeapGestureController.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Arm.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Bone.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\CircularObjectBuffer.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Config.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Connection.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Controller.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\CSharpExtensions.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Device.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\DeviceList.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\DistortionData.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\DistortionDictionary.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Events.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\FailedDevice.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\FailedDeviceList.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Finger.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Frame.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Hand.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\IController.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Image.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\ImageData.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\ImageFuture.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\InteractionBox.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\LeapC.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Logger.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Matrix.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\MessageSeverity.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\ObjectPool.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\PendingImages.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\PooledObject.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\ServiceFrameFactory.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\StructMarshal.cs" />
-    <Compile Include="Implementation\LeapGestureController\LeapSDK\Vector.cs" />
     <Compile Include="Implementation\TrameGestureController\Interpreted\Recognizer\Kristensson\Centroid.cs" />
     <Compile Include="Implementation\TrameGestureController\Interpreted\Recognizer\Kristensson\Distance.cs" />
     <Compile Include="Implementation\TrameGestureController\Interpreted\Recognizer\Kristensson\Geometry.cs" />
@@ -173,6 +145,9 @@
   <ItemGroup>
     <None Include="GestureRecognition.nuspec" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LeapCSharp.NET4.5.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -93,19 +93,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pipeline\Interpreted\InputVectorTest.cs" />
-    <Compile Include="Pipeline\Interpreted\Recognizer\Blank\ThreeDGestureRecognizerTest.cs" />
-    <Compile Include="Pipeline\Interpreted\Template\ExplodeGestureTest.cs" />
-    <Compile Include="Pipeline\Interpreted\Template\ImplodeGestureTest.cs" />
-    <Compile Include="Pipeline\Interpreted\Template\ScaleAndRotateGestureTest.cs" />
-    <Compile Include="Pipeline\Interpreted\Template\SequenceTest.cs" />
-    <Compile Include="Pipeline\Tasks\SmoothingTaskTest.cs" />
-    <Compile Include="Pipeline\Tasks\DecisionTaskTest.cs" />
-    <Compile Include="Pipeline\Tasks\RecognitionTaskTest.cs" />
-    <Compile Include="Pipeline\Interpreted\ResultTest.cs" />
-    <Compile Include="Pipeline\Physical\PhysicCalculationTest.cs" />
+    <Compile Include="Implementation\DeciderTest.cs" />
+    <Compile Include="Implementation\Pipeline\Interpreted\InputVectorTest.cs" />
+    <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\Blank\ThreeDGestureRecognizerTest.cs" />
+    <Compile Include="Implementation\Pipeline\Interpreted\Template\ExplodeGestureTest.cs" />
+    <Compile Include="Implementation\Pipeline\Interpreted\Template\ImplodeGestureTest.cs" />
+    <Compile Include="Implementation\Pipeline\Interpreted\Template\ScaleAndRotateGestureTest.cs" />
+    <Compile Include="Implementation\Pipeline\Interpreted\Template\SequenceTest.cs" />
+    <Compile Include="Implementation\Pipeline\Tasks\SmoothingTaskTest.cs" />
+    <Compile Include="Implementation\Pipeline\Tasks\DecisionTaskTest.cs" />
+    <Compile Include="Implementation\Pipeline\Tasks\RecognitionTaskTest.cs" />
+    <Compile Include="Implementation\ResultTest.cs" />
+    <Compile Include="Implementation\Pipeline\Physical\PhysicCalculationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Pipeline\Interpreted\Template\BoundaryBoxTest.cs" />
+    <Compile Include="Implementation\Pipeline\Interpreted\Template\BoundaryBoxTest.cs" />
     <Compile Include="Utility\DoubleUtilityTest.cs" />
     <Compile Include="Utility\ListExtensionTest.cs" />
   </ItemGroup>
