@@ -41,23 +41,30 @@ namespace GestureRecognition.Implementation
 
         private void NewFrameAvailable(Frame frame)
         {
-            if (frame.Hands.Count > 0)
+            try
             {
-                var physicsCmd = new PhysicCommand();
-                foreach (var hand in frame.Hands)
+                if (frame.Hands.Count > 0)
                 {
-                    var parts = CreateHand(hand, hand.IsLeft ? JointType.HAND_LEFT : JointType.HAND_RIGHT);
-                    foreach (var bodyPart in parts)
+                    var physicsCmd = new PhysicCommand();
+                    foreach (var hand in frame.Hands)
                     {
-                        physicsCmd.AddCollider(bodyPart);
+                        var parts = CreateHand(hand, hand.IsLeft ? JointType.HAND_LEFT : JointType.HAND_RIGHT);
+                        foreach (var bodyPart in parts)
+                        {
+                            physicsCmd.AddCollider(bodyPart);
+                        }
                     }
+                    FireNewCommand(physicsCmd);
                 }
-                FireNewCommand(physicsCmd);
+                if (frame.Hands.Count == 2)
+                {
+                    var leftHand = frame.Hands.Find(h => h.IsLeft);
+                    var rightHand = frame.Hands.Find(h => h.IsRight);
+                }
             }
-            if (frame.Hands.Count == 2)
+            catch (Exception e)
             {
-                var leftHand = frame.Hands.Find(h => h.IsLeft);
-                var rightHand = frame.Hands.Find(h => h.IsRight);
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -89,7 +96,7 @@ namespace GestureRecognition.Implementation
 
         private static IEnumerable<BodyPart> CreateFinger(Finger finger, JointType jt)
         {
-            var bones = Enum.GetValues(typeof (Bone.BoneType)).Cast<Bone.BoneType>()
+            var bones = new List<Bone.BoneType> {Bone.BoneType.TYPE_DISTAL, Bone.BoneType.TYPE_INTERMEDIATE, Bone.BoneType.TYPE_METACARPAL, Bone.BoneType.TYPE_PROXIMAL}
                 .Select<Bone.BoneType, Bone>(finger.Bone)
                 .Where(bone => bone != null);
             return bones.Select(bone => new BodyPart
