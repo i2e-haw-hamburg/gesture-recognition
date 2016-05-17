@@ -85,7 +85,8 @@ namespace GestureRecognition.Implementation
                 Position = new Vector3(handPosition.x, handPosition.y, handPosition.z),
                 Velocity = new Vector3(hand.PalmVelocity.x, hand.PalmVelocity.y, hand.PalmVelocity.z)
             };
-            var parts = new List<BodyPart> { handPart };
+            // TODO: should we add the hand palm to the list?
+            var parts = new List<BodyPart> {  };
             parts.AddRange(
                 hand.Fingers.Select(
                     finger => CreateFinger(finger, FingerType2JointType(finger.Type, JointType.HAND_LEFT == jt ? 1 : -1))
@@ -103,7 +104,7 @@ namespace GestureRecognition.Implementation
             {
                 Id = BoneType2JointType(jt, bone.Type).ToInt(),
                 Position = new Vector3(bone.PrevJoint.x, bone.PrevJoint.y, bone.PrevJoint.z),
-                Rotation = new Vector4(bone.Direction.x, bone.Direction.y, bone.Direction.z, 0),
+                Rotation = new Vector4(bone.Rotation.x, bone.Rotation.y, bone.Rotation.z, bone.Rotation.w),
                 Length = bone.Length
             });
         }

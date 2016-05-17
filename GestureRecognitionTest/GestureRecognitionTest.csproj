@@ -105,7 +105,7 @@
     <Compile Include="Implementation\Pipeline\Tasks\RecognitionTaskTest.cs" />
     <Compile Include="Implementation\ResultTest.cs" />
     <Compile Include="Implementation\Pipeline\Physical\PhysicCalculationTest.cs" />
-    <Compile Include="LeapGestureControllerTest.cs" />
+    <Compile Include="Implementation\LeapGestureControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\BoundaryBoxTest.cs" />
     <Compile Include="Utility\DoubleUtilityTest.cs" />

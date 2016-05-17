@@ -1,7 +1,7 @@
 language: csharp
 mono:
   - alpha
-env: VERSION=0.1.10
+env: VERSION=0.1.11
 solution: GestureRecognition.sln
 before_install:
   - sudo apt-get install nunit-console
