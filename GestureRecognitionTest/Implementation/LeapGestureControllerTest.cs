@@ -6,11 +6,13 @@ using NUnit.Framework;
 
 namespace GestureRecognitionTest
 {
-
+    [TestFixture]
     public class LeapGestureControllerTest
     {
-        
-        public void testInit()
+
+        [Test]
+        [Ignore("This tests needs a connected Leap Motion. It will be ignored in continous integration")]
+        public void TestLeapInit()
         {
             var commandReceived = false;
             var commandWaiter = new ManualResetEventSlim();

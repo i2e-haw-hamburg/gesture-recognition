@@ -6,7 +6,7 @@ using GestureRecognition.Interface.Commands;
 
 namespace GestureRecognition.Implementation
 {
-	public class Decider : IDecider
+	class Decider : IDecider
 	{
 		private const double Threshold = 0.6;
 
