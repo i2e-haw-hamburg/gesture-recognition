@@ -105,8 +105,32 @@ namespace GestureRecognition.Implementation
                 Id = BoneType2JointType(jt, bone.Type).ToInt(),
                 Position = new Vector3(bone.PrevJoint.x, bone.PrevJoint.y, bone.PrevJoint.z),
                 Rotation = new Vector4(bone.Rotation.x, bone.Rotation.y, bone.Rotation.z, bone.Rotation.w),
-                Length = bone.Length
-            });
+                Length = ExtractLength(bone)
+            }).Where(part => part.Id != 20613 && part.Id != 22613);
+        }
+
+        private static float ExtractLength(Bone bone)
+        {
+            var len = bone.Length;
+            if (len <= 0)
+            {
+                switch (bone.Type)
+                {
+                    case Bone.BoneType.TYPE_DISTAL:
+                        len = 18;
+                        break;
+                    case Bone.BoneType.TYPE_INTERMEDIATE:
+                        len = 20;
+                        break;
+                    case Bone.BoneType.TYPE_PROXIMAL:
+                        len = 25;
+                        break;
+                    case Bone.BoneType.TYPE_METACARPAL:
+                        len = 60;
+                        break;
+                }
+            }
+            return len;
         }
 
         private static JointType BoneType2JointType(JointType fingerType, Bone.BoneType type)

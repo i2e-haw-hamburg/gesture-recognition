@@ -123,6 +123,7 @@
     <Compile Include="Implementation\TrameGestureController\Interpreted\Template\ABasisTemplate.cs" />
     <Compile Include="Implementation\Decider.cs" />
     <Compile Include="Implementation\TrameGestureController\Tasks\PhysicCalculationTask.cs" />
+    <Compile Include="Interface\Commands\GrabCommand.cs" />
     <Compile Include="Interface\Commands\NoneCommand.cs" />
     <Compile Include="Interface\Commands\ScaleAndRotate.cs" />
     <Compile Include="Interface\Commands\PhysicCommand.cs" />
