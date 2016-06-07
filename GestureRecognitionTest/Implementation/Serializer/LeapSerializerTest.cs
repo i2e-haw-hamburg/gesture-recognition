@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
+using GestureRecognition.Implementation.Serializer;
 using Leap;
-using LeapRecorder;
 using NUnit;
 using NUnit.Framework;
 

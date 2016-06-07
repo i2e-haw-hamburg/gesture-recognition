@@ -5,32 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
+using GestureRecognition.Implementation.Serializer;
 using Leap;
-using LeapRecorder;
 using NUnit;
 using NUnit.Framework;
 
 namespace LeapRecorderTest
 {
-    [TestFixture]
     public class BsonLeapSerializerTest
     {
-        [Test]
-        public void TestDeserializeFromFile()
-        {
-            var fileName = "right_hand.bson";
-            var b = new byte[4];
-            var file = new FileStream(fileName, FileMode.Open);
-            file.Read(b, 0, 4);
-            var length = BitConverter.ToInt32(b, 0);
-            var objBuffer = new byte[length];
-            var serializer = new BsonLeapSerializer();
-            file.Read(objBuffer, 0, length);
-            var frame = serializer.Deserialize(objBuffer);
-            Assert.AreEqual(1, frame.Id);
-        }
-
-        [Test]
         public void TestSerialize()
         {
             var frame = new Frame(1, 1, 30, new InteractionBox(Vector.Down, Vector.Right), new List<Hand>());
@@ -39,8 +22,7 @@ namespace LeapRecorderTest
             Assert.AreEqual(1, frame.Id);
             Assert.IsNotEmpty(serializedData);
         }
-
-        [Test]
+        
         public void TestDeserialize()
         {
             var frame = new Frame(1, 1, 30, new InteractionBox(Vector.Down, Vector.Right), new List<Hand>());

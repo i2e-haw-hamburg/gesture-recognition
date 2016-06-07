@@ -13,7 +13,6 @@ namespace GestureRecognition.Implementation
             _controller = new Controller();
             _controller.FrameReady += OnNewFrame;
             _controller.StartConnection();
-
         }
 
         private void OnNewFrame(object sender, FrameEventArgs e)

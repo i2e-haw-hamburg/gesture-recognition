@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using GestureRecognition.Implementation.Serializer;
 using GestureRecognition.Interface;
 using Leap;
-using LeapRecorder;
 
 namespace GestureRecognition.Implementation
 {
@@ -50,6 +50,10 @@ namespace GestureRecognition.Implementation
                     var frame = serializer.Deserialize(objBuffer);
                     FireFrameReady(frame);
                 }
+            }
+            catch (Exception e)
+            {
+                throw;
             }
             finally
             {

@@ -9,7 +9,6 @@ using GestureRecognition.Implementation.Task;
 using GestureRecognition.Interface;
 using GestureRecognition.Interface.Commands;
 using Leap;
-using LeapRecorder;
 using Trame;
 using Trame.Implementation.Skeleton;
 using TrameSkeleton.Math;
@@ -30,7 +29,7 @@ namespace GestureRecognition.Implementation
 
         public LeapGestureController() : this(new LeapController())
         {
-            
+            _controller.StartConnection();
         }
 
         public LeapGestureController(ILeapController controller)

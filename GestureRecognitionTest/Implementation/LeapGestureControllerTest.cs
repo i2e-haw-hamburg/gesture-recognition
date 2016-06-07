@@ -32,14 +32,18 @@ namespace GestureRecognitionTest
         [Test]
         public void TestThumbsHasNoIntermediate()
         {
-            var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController());
+            var notHasIntermediate = false;
+            var commandWaiter = new ManualResetEventSlim();
+            var player = new LeapPlayer(@"frames\right_hand_grab.frames");
+            var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
             gestureRecognition.SubscribeToCommand<PhysicCommand>(x =>
             {
-                var hasIntermediate = x.BodyParts.Any(part => part.Id == 20611 || part.Id == 22611);
-                Assert.IsFalse(hasIntermediate, "Thumbs should not have an metacarpal bone");
+                notHasIntermediate = !x.BodyParts.Any(part => part.Id == 20611 || part.Id == 22611);
+                commandWaiter.Set();
             });
-
-            
+            player.StartConnection();
+            commandWaiter.Wait(5000);
+            Assert.IsTrue(notHasIntermediate, "Thumbs should not have an metacarpal bone");
         }
     }
 }
