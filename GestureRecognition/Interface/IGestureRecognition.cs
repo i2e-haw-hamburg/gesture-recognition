@@ -21,7 +21,12 @@ namespace GestureRecognition.Interface
     /// </summary>
     public interface IGestureRecognition
     {
+        
         #region Public Methods and Operators
+        /// <summary>
+        /// 
+        /// </summary>
+        void Stop();
 
         /// <summary>
         /// Subscribes the listener for the specified command. The specified listener delegate will be called, if the user

@@ -11,5 +11,7 @@ namespace GestureRecognition.Interface
         event Action<AUserCommand> NewPhysicsCommand;
         event Action<IEnumerable<Result>> NewMotions;
         void PushNewSkeleton(ISkeleton skeleton);
+
+        void Stop();
     }
 }

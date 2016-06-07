@@ -30,19 +30,16 @@ namespace GestureRecognitionTest
         }
 
         [Test]
-        [Ignore("This tests needs a connected Leap Motion. It will be ignored in continous integration")]
         public void TestThumbsHasNoIntermediate()
         {
-            var hasIntermediate = false;
-            var commandWaiter = new ManualResetEventSlim();
             var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController());
             gestureRecognition.SubscribeToCommand<PhysicCommand>(x =>
             {
-                hasIntermediate = x.BodyParts.Any(part => part.Id == 20613 || part.Id == 22613);
-                commandWaiter.Set();
+                var hasIntermediate = x.BodyParts.Any(part => part.Id == 20611 || part.Id == 22611);
+                Assert.IsFalse(hasIntermediate, "Thumbs should not have an metacarpal bone");
             });
-            commandWaiter.Wait(5000);
-            Assert.IsFalse(hasIntermediate, "Thumbs should not have an intermediate bone");
+
+            
         }
     }
 }

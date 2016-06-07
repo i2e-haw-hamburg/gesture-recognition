@@ -83,6 +83,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\LeapCSharp.NET4.5.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.2.4\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -96,6 +100,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\IDecider.cs" />
+    <Compile Include="Interface\ILeapController.cs" />
+    <Compile Include="Implementation\LeapGestureController\LeapController.cs" />
+    <Compile Include="Implementation\LeapGestureController\LeapPlayer.cs" />
+    <Compile Include="Implementation\LeapGestureController\Serializer\BsonLeapSerializer.cs" />
+    <Compile Include="Implementation\LeapGestureController\Serializer\ILeapSerializer.cs" />
+    <Compile Include="Implementation\LeapGestureController\Serializer\LeapFrameSerializer.cs" />
+    <Compile Include="Implementation\LeapGestureController\Serializer\LeapQuaternionBsonSerializer.cs" />
+    <Compile Include="Implementation\LeapGestureController\Serializer\VectorBsonSerializer.cs" />
     <Compile Include="Implementation\LeapGestureController\Task\MotionRecognitionTask.cs" />
     <Compile Include="Implementation\TrameGestureController\TrameGestureController.cs" />
     <Compile Include="Implementation\GestureRecognition.cs" />
