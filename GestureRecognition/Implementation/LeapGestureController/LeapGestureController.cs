@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GestureRecognition.Implementation.Pipeline.Interpreted;
 using GestureRecognition.Implementation.Task;
+using GestureRecognition.Interface;
 using GestureRecognition.Interface.Commands;
 using Leap;
 using Trame;
@@ -17,28 +18,44 @@ namespace GestureRecognition.Implementation
 {
     public class LeapGestureController : IController
     {
+        private CancellationTokenSource _cancellationTokenSource;
         public event Action<AUserCommand> NewPhysicsCommand;
         public event Action<IEnumerable<Result>> NewMotions;
 
         private readonly BlockingCollection<Frame> _frameBuffer;
 
-        private Leap.Controller controller;
+        private readonly ILeapController _controller;
         private Thread _thread;
 
-        public LeapGestureController()
+        public LeapGestureController() : this(new LeapController())
         {
+            _controller.StartConnection();
+        }
+
+        public LeapGestureController(ILeapController controller)
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
             // buffers
             _frameBuffer = new BlockingCollection<Frame>();
             var recognitionTask = new MotionRecognitionTask();
-            var f = new TaskFactory(TaskCreationOptions.LongRunning, TaskContinuationOptions.None);
             // interpreted
-            var recognition = f.StartNew(() => recognitionTask.Do(_frameBuffer, FireNewMotions));
-            _thread = new Thread(() => { System.Threading.Tasks.Task.WaitAll(recognition); });
+            _thread = new Thread(() =>
+            {
+                try
+                {
+                    recognitionTask.Do(_frameBuffer, FireNewMotions, _cancellationTokenSource.Token);
+                }
+                catch (OperationCanceledException)
+                {
+                    // 
+                }
+               
+            });
             _thread.Start();
-            controller = new Leap.Controller();
-            controller.FrameReady += (sender, args) => this.NewFrameAvailable(args.frame);
+            this._controller = controller;
+            this._controller.FrameReady += NewFrameAvailable;
         }
-
+        
         private void NewFrameAvailable(Frame frame)
         {
             try
@@ -106,7 +123,7 @@ namespace GestureRecognition.Implementation
                 Position = new Vector3(bone.PrevJoint.x, bone.PrevJoint.y, bone.PrevJoint.z),
                 Rotation = new Vector4(bone.Rotation.x, bone.Rotation.y, bone.Rotation.z, bone.Rotation.w),
                 Length = ExtractLength(bone)
-            }).Where(part => part.Id != 20613 && part.Id != 22613);
+            }).Where(part => part.Id != JointType.THUMB_LEFT_METACARPAL.ToInt() && part.Id != JointType.THUMB_RIGHT_METACARPAL.ToInt());
         }
 
         private static float ExtractLength(Bone bone)
@@ -203,7 +220,12 @@ namespace GestureRecognition.Implementation
         }
 
         public void PushNewSkeleton(ISkeleton skeleton) {}
-        
+        public void Stop()
+        {
+            _controller.StopConnection();
+            _controller.FrameReady -= NewFrameAvailable;
+            _cancellationTokenSource.Cancel();
+        }
     }
         
 }

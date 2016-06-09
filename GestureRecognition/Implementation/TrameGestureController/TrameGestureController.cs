@@ -63,6 +63,11 @@ namespace GestureRecognition.Implementation.TrameGestureController
             _skeletonBuffer2.Add(skeleton.Clone());
         }
 
+        public void Stop()
+        {
+            // pass
+        }
+
         /// <summary>
         /// 
         /// </summary>

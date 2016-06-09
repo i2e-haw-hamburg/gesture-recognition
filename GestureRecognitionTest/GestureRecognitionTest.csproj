@@ -75,6 +75,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LeapCSharp.NET4.5, Version=3.1.2.0, Culture=neutral, PublicKeyToken=6e1b1368e71eba9b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GestureRecognition\LeapCSharp.NET4.5.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -108,6 +112,8 @@
     <Compile Include="Implementation\LeapGestureControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\BoundaryBoxTest.cs" />
+    <Compile Include="Implementation\Serializer\BsonLeapSerializerTest.cs" />
+    <Compile Include="Implementation\Serializer\LeapSerializerTest.cs" />
     <Compile Include="Utility\DoubleUtilityTest.cs" />
     <Compile Include="Utility\ListExtensionTest.cs" />
   </ItemGroup>
@@ -121,6 +127,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="frames\right_hand_grab.frames">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +137,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

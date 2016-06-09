@@ -73,6 +73,14 @@ namespace GestureRecognition.Implementation
 
         #region Public Methods and Operators
 
+        public void Stop()
+        {
+            _decider.NewInterpretedCommand -= FireNewCommand;
+            _controller.NewPhysicsCommand -= FireNewCommand;
+            _controller.NewMotions -= _decider.Decide;
+            _controller.Stop();
+        }
+
         public void SubscribeToCommand<T>(Action<T> commandListener) where T : AUserCommand
         {
             var typeOfCommand = typeof(T);
