@@ -7,7 +7,7 @@ using TrameSkeleton.Math;
 namespace GestureRecognition.Interface.Commands
 {
 	/// <summary>
-	/// Physic command.
+	/// Physic Command.
 	/// </summary>
     public class PhysicCommand : AUserCommand
 	{

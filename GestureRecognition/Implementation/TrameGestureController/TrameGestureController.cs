@@ -17,7 +17,7 @@ namespace GestureRecognition.Implementation.TrameGestureController
     public class TrameGestureController : IController
     {
         /// <summary>
-        /// The action that should be fired on a new command.
+        /// The action that should be fired on a new Command.
         /// </summary>
         public event Action<AUserCommand> NewPhysicsCommand;
 

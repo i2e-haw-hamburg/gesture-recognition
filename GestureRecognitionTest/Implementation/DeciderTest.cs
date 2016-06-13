@@ -54,7 +54,7 @@ namespace GestureRecognitionTest.Implementation
 
         private Result MockResult(double prob)
         {
-            return new Result(new ExplodeGesture(), prob, new Dictionary<JointType, InputVector>());
+            return new Result(new ExplodeGesture(), prob);
         }
     }
 }

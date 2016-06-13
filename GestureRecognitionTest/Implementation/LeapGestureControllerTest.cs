@@ -32,18 +32,59 @@ namespace GestureRecognitionTest
         [Test]
         public void TestThumbsHasNoIntermediate()
         {
-            var notHasIntermediate = false;
+            var hasMetacarpal = true;
+            var commandFired = false;
             var commandWaiter = new ManualResetEventSlim();
             var player = new LeapPlayer(@"frames\right_hand_grab.frames");
             var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
             gestureRecognition.SubscribeToCommand<PhysicCommand>(x =>
             {
-                notHasIntermediate = !x.BodyParts.Any(part => part.Id == 20611 || part.Id == 22611);
+                hasMetacarpal = x.BodyParts.Any(part => part.Id == 20611 || part.Id == 22611);
+                commandFired = true;
                 commandWaiter.Set();
             });
             player.StartConnection();
-            commandWaiter.Wait(5000);
-            Assert.IsTrue(notHasIntermediate, "Thumbs should not have an metacarpal bone");
+            commandWaiter.Wait(3000);
+            player.StopConnection();
+            Assert.IsTrue(commandFired, "Physics command should be fired");
+            Assert.IsFalse(hasMetacarpal, "Thumbs should not have an metacarpal bone");
+        }
+        
+        [Test]
+        public void TestRightHandGrab()
+        {
+            var grabDetected = false;
+            var commandWaiter = new ManualResetEventSlim();
+            var player = new LeapPlayer(@"frames\right_hand_grab.frames");
+            var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
+            gestureRecognition.SubscribeToCommand<GrabCommand>(x =>
+            {
+                grabDetected = true;
+                commandWaiter.Set();
+            });
+            player.StartConnection();
+            commandWaiter.Wait(3000);
+            player.StopConnection();
+            Assert.IsTrue(grabDetected, "Grab Command of right hand should be detected");
+        }
+
+        [Test]
+        public void TestLeftHandGrab()
+        {
+            var grabDetected = false;
+            var commandWaiter = new ManualResetEventSlim();
+            var player = new LeapPlayer(@"frames\left_hand_grab.frames");
+            var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
+            gestureRecognition.SubscribeToCommand<GrabCommand>(x =>
+            {
+
+                grabDetected = true;
+                commandWaiter.Set();
+            });
+            player.StartConnection();
+            commandWaiter.Wait(3000);
+            player.StopConnection();
+            Assert.IsTrue(grabDetected, "Grab Command of left hand should be detected");
         }
     }
 }

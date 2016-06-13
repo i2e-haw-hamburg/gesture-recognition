@@ -8,7 +8,7 @@ using Trame;
 namespace GestureRecognition.Implementation.TrameGestureController.Tasks
 {
     /// <summary>
-    /// This class provides the recognizer and matches recognized templates with the best suited command.
+    /// This class provides the recognizer and matches recognized templates with the best suited Command.
     /// </summary>
     public class RecognitionTask
     {

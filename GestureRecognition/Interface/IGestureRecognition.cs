@@ -29,21 +29,21 @@ namespace GestureRecognition.Interface
         void Stop();
 
         /// <summary>
-        /// Subscribes the listener for the specified command. The specified listener delegate will be called, if the user
+        /// Subscribes the listener for the specified Command. The specified listener delegate will be called, if the user
         /// executes a gesture that is mapped to the specified <see cref="AUserCommand" />.
         /// </summary>
         /// <typeparam name="T">
-        /// The type of command (<see cref="AUserCommand" />) the <see cref="commandListener" /> Delegate is
+        /// The type of Command (<see cref="AUserCommand" />) the <see cref="commandListener" /> Delegate is
         /// subscribed to.
         /// </typeparam>
-        /// <param name="commandListener">The delegate that is subscribed for the specified command.</param>
+        /// <param name="commandListener">The delegate that is subscribed for the specified Command.</param>
         void SubscribeToCommand<T>(Action<T> commandListener) where T : AUserCommand;
 
         /// <summary>
-        /// Unsubscribes the specified listener Delegate from the specified type of command. The specified listener delegate
+        /// Unsubscribes the specified listener Delegate from the specified type of Command. The specified listener delegate
         /// will no longer be called, if the user executes a gesture that is mapped to the specified <see cref="AUserCommand" />.
         /// </summary>
-        /// <typeparam name="T"> The type of command the listener will be unsubscribed from. </typeparam>
+        /// <typeparam name="T"> The type of Command the listener will be unsubscribed from. </typeparam>
         /// <param name="commandListener"> The listener delegate that will be unsubscribed. </param>
         void UnsubscribeFromCommand<T>(Action<T> commandListener) where T : AUserCommand;
 

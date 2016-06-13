@@ -103,7 +103,7 @@ namespace GestureRecognition.Implementation
             if (!this.listeners.ContainsKey(typeOfCommand))
             {
                 throw new ArgumentException(
-                    "Failed to unsubscribe listener: There are no listeners subscribed for the type of command "
+                    "Failed to unsubscribe listener: There are no listeners subscribed for the type of Command "
                     + typeOfCommand);
             }
 
@@ -135,7 +135,7 @@ namespace GestureRecognition.Implementation
 
             if (!this.listeners.ContainsKey(typeOfCommand))
             {
-                // There are no subscribed listeners for this command.
+                // There are no subscribed listeners for this Command.
                 return;
             }
 
