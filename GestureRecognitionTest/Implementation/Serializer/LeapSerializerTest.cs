@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Schema;
+﻿using System.Collections.Generic;
 using GestureRecognition.Implementation.Serializer;
 using Leap;
-using NUnit;
 using NUnit.Framework;
 
-namespace LeapRecorderTest
+namespace GestureRecognitionTest.Implementation.Serializer
 {
     [TestFixture]
     public class LeapFrameSerializerTest

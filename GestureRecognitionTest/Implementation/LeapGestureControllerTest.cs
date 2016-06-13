@@ -15,35 +15,64 @@ namespace GestureRecognitionTest
         [Ignore("This tests needs a connected Leap Motion. It will be ignored in continous integration")]
         public void TestLeapInit()
         {
-            var commandReceived = false;
-            var commandWaiter = new ManualResetEventSlim();
+            var commandFired = new ManualResetEvent(false);
             var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController());
-            gestureRecognition.SubscribeToCommand<PhysicCommand>(x =>
-            {
-                commandReceived = true;
-                commandWaiter.Set();
-            });
-
-            commandWaiter.Wait(5000);
-
-            Assert.IsTrue(commandReceived);
+            gestureRecognition.SubscribeToCommand<PhysicCommand>(x => commandFired.Set());
+            Assert.IsTrue(commandFired.WaitOne(5000));
         }
 
         [Test]
         public void TestThumbsHasNoIntermediate()
         {
-            var notHasIntermediate = false;
-            var commandWaiter = new ManualResetEventSlim();
+            var hasMetacarpal = true;
+            var commandFired = new ManualResetEvent(false);
             var player = new LeapPlayer(@"frames\right_hand_grab.frames");
             var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
             gestureRecognition.SubscribeToCommand<PhysicCommand>(x =>
             {
-                notHasIntermediate = !x.BodyParts.Any(part => part.Id == 20611 || part.Id == 22611);
-                commandWaiter.Set();
+                hasMetacarpal = x.BodyParts.Any(part => part.Id == 20611 || part.Id == 22611);
+                commandFired.Set();
             });
             player.StartConnection();
-            commandWaiter.Wait(5000);
-            Assert.IsTrue(notHasIntermediate, "Thumbs should not have an metacarpal bone");
+            Assert.IsTrue(commandFired.WaitOne(2000), "Physics command should be fired");
+            player.StopConnection();
+            Assert.IsFalse(hasMetacarpal, "Thumbs should not have an metacarpal bone");
+        }
+        
+        [Test]
+        public void TestRightHandGrab()
+        {
+            var rightHand = false;
+            var grabDetected = new ManualResetEvent(false);
+            var player = new LeapPlayer(@"frames\right_hand_grab.frames");
+            var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
+            gestureRecognition.SubscribeToCommand<GrabCommand>(x =>
+            {
+                rightHand = x.RightHand;
+                grabDetected.Set();
+            });
+            player.StartConnection();
+            Assert.IsTrue(grabDetected.WaitOne(2000), "Grab Command of right hand should be detected");
+            player.StopConnection();
+            Assert.IsTrue(rightHand, "Right hand should be provided by command");
+        }
+
+        [Test]
+        public void TestLeftHandGrab()
+        {
+            var grabDetected = new ManualResetEvent(false);
+            var leftHand = false;
+            var player = new LeapPlayer(@"frames\left_hand_grab.frames");
+            var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
+            gestureRecognition.SubscribeToCommand<GrabCommand>(x =>
+            {
+                leftHand = x.LeftHand;
+                grabDetected.Set();
+            });
+            player.StartConnection();
+            Assert.IsTrue(grabDetected.WaitOne(2000), "Grab Command of left hand should be detected");
+            player.StopConnection();
+            Assert.IsTrue(leftHand, "Left hand should be provided by command");
         }
     }
 }

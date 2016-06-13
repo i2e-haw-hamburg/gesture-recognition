@@ -22,7 +22,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Blank
         /// <returns>list of results</returns>
         public IEnumerable<Result> Recognize(IDictionary<JointType, InputVector> input)
         {
-            return _templates.Select(t => new Result(t, ProbabilityCalculation(t, input), input));
+            return _templates.Select(t => new Result(t, ProbabilityCalculation(t, input)));
         }
 
         public static double ProbabilityCalculation(ITemplate template, IDictionary<JointType, InputVector> input)

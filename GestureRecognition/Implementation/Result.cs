@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GestureRecognition.Implementation.Pipeline.Interpreted.Template;
+using GestureRecognition.Interface.Commands;
 using Trame;
 
 namespace GestureRecognition.Implementation.Pipeline.Interpreted
@@ -13,29 +14,25 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
         /// <summary>
         /// The probability associated with this recognition result.
         /// </summary>
-        public double prob;
-
-        /// <summary>
-        /// The point sequences associated with this recognition result.
-        /// </summary>
-        public IDictionary<JointType, InputVector> pts;
-
+        public double Probability;
+        
         /// <summary>
         /// The template associated with this recognition result.
         /// </summary>
-        public ITemplate template;
+        public AInterpretedCommand Command;
 
         /// <summary>
         /// Instantiates a new result.
         /// </summary>
         /// <param name="template">The Template associated with this result.</param>
-        /// <param name="prob">The probability that this result is correct.</param>
-        /// <param name="pts">The directory of lists of points associated with this result.</param>
-        public Result(ITemplate template, double prob, IDictionary<JointType, InputVector> pts)
+        /// <param name="probability">The probability that this result is correct.</param>
+        public Result(ITemplate template, double probability) : this(template.Command, probability)
+        {}
+
+        public Result(AInterpretedCommand cmd, double probability)
         {
-            this.template = template;
-            this.prob = prob;
-            this.pts = pts;
+            Command = cmd;
+            this.Probability = probability;
         }
 
         /// <summary>
@@ -48,11 +45,11 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
         /// </returns>
         public int CompareTo(Result r)
         {
-            if (prob.Equals(r.prob))
+            if (Probability.Equals(r.Probability))
             {
                 return 0;
             }
-            if (prob < r.prob)
+            if (Probability < r.Probability)
             {
                 return 1;
             }
@@ -61,7 +58,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted
 
         public override string ToString()
         {
-            return template.Id + ": " + prob;
+            return Command.Id + ": " + Probability;
         }
     }
 }

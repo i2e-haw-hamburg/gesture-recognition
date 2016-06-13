@@ -135,10 +135,7 @@ namespace GestureRecognition.Implementation.Pipeline.Interpreted.Kristensson
         {
             return incrementalResults
                 .Where(ir => ir.IndexOfMostLikelySegment >= 0)
-                .Select(ir => new Result(ir.Pattern.Template, ir.Prob, new Dictionary<JointType, InputVector>
-                {
-                    {JointType.HAND_RIGHT, new InputVector(ir.Pattern.Segments[ir.IndexOfMostLikelySegment])}
-                }))
+                .Select(ir => new Result(ir.Pattern.Template, ir.Prob))
                 .ToList();
         }
 

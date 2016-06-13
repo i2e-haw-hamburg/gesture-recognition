@@ -38,8 +38,7 @@ namespace GestureRecognition.Implementation
             // load file
             var sizeBytes = new byte[4];
             var serializer = new LeapFrameSerializer();
-            var file = new FileStream(_path, FileMode.Open);
-            try
+            using (var file = File.Open(_path, FileMode.Open))
             {
                 while (!_cancellationTokenSource.Token.IsCancellationRequested)
                 {
@@ -51,15 +50,6 @@ namespace GestureRecognition.Implementation
                     FireFrameReady(frame);
                 }
             }
-            catch (Exception e)
-            {
-                throw;
-            }
-            finally
-            {
-                file.Close();
-            }
-
         }
 
         private void FireFrameReady(Frame f)

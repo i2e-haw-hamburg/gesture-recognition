@@ -19,10 +19,10 @@ namespace GestureRecognition.Implementation
             {
                 return;
             }
-            var result = enumerable.OrderByDescending(r => r.prob).First();
-            if (result.prob > Threshold)
+            var result = enumerable.OrderByDescending(r => r.Probability).First();
+            if (result.Probability > Threshold)
             {
-                NewInterpretedCommand?.Invoke(result.template.Command);
+                NewInterpretedCommand?.Invoke(result.Command);
             }
         }
 

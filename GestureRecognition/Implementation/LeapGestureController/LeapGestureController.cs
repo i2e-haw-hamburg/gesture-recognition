@@ -62,6 +62,7 @@ namespace GestureRecognition.Implementation
             {
                 if (frame.Hands.Count > 0)
                 {
+                    _frameBuffer.Add(frame);
                     var physicsCmd = new PhysicCommand();
                     foreach (var hand in frame.Hands)
                     {

@@ -44,8 +44,7 @@ namespace LeapRecorder
                 _countOfFrames++;
             }
             catch (Exception)
-            {
-            }
+            {}
         }
 
         private void Stop()
