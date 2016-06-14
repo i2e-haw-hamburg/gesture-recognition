@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,11 @@ namespace GestureRecognition.Implementation.Task
                     _state = RecognitionState.StartDetected;
                     continue;
                 }
-                CheckTwoHandGestures(leftHand, rightHand, fireNewMotions);
+                if(_state == RecognitionState.StartDetected && CheckTwoHandGestures(leftHand, rightHand, fireNewMotions))
+                {
+                    _startFrame = frame;
+                    _state = RecognitionState.Start;
+                }
             }
         }
 
@@ -57,17 +62,39 @@ namespace GestureRecognition.Implementation.Task
             return leftHand != null && rightHand != null;
         }
 
-        private void CheckTwoHandGestures(Hand leftHand, Hand rightHand, Action<IEnumerable<Result>> fireNewMotions)
+        private bool CheckTwoHandGestures(Hand leftHand, Hand rightHand, Action<IEnumerable<Result>> fireNewMotions)
         {
-            //throw new NotImplementedException();
+            var leftHandOld = _startFrame.Hands.Find(h => h.IsLeft);
+            var rightHandOld = _startFrame.Hands.Find(h => h.IsRight);
+            var rightToLeftOld = leftHandOld.PalmPosition - rightHandOld.PalmPosition;
+            var rightToLeft = leftHand.PalmPosition - rightHand.PalmPosition;
+            var center = rightHandOld.StabilizedPalmPosition +
+                         (rightToLeftOld) /2;
+            var cmd = new ScaleAndRotate
+            {
+                Scale = (leftHand.PalmPosition - rightHand.PalmPosition).MagnitudeSquared / (rightToLeftOld).MagnitudeSquared,
+                Center = center,
+                Rotation = new Vector(rightToLeft.Pitch - rightToLeftOld.Pitch, rightToLeft.Yaw - rightToLeftOld.Yaw, rightToLeft.Roll - rightToLeftOld.Roll)
+            };
+            var result = new Result(cmd, 0.9);
+            fireNewMotions(new List<Result> {result});
+            return true;
         }
 
         private static void CheckSingleHandGestures(Frame frame, Action<IEnumerable<Result>> fireNewMotions)
         {
             var grabbedHands = frame.Hands.Where(hand => hand.GrabStrength > 0.7);
             var pinchedHands = frame.Hands.Where(hand => hand.PinchStrength > 0.7);
-            var results = grabbedHands.Select(hand => new Result(new GrabCommand(hand.IsLeft), hand.GrabStrength));
-            fireNewMotions(results.Concat(pinchedHands.Select(hand => new Result(new GrabCommand(hand.IsLeft), hand.PinchStrength))));
+            var results = grabbedHands.Select(hand => new Result(new GrabCommand(hand.IsLeft)
+            {
+                Position = hand.PalmPosition,
+                Normal = hand.PalmNormal
+            }, hand.GrabStrength));
+            fireNewMotions(results.Concat(pinchedHands.Select(hand => new Result(new GrabCommand(hand.IsLeft)
+            {
+                Position = hand.PalmPosition,
+                Normal = hand.PalmNormal
+            }, hand.PinchStrength))));
         }
         
         /// <summary>

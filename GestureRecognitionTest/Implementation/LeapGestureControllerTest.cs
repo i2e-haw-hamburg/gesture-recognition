@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using GestureRecognition.Implementation;
 using GestureRecognition.Interface;
@@ -74,17 +75,16 @@ namespace GestureRecognitionTest
             player.StopConnection();
             Assert.IsTrue(leftHand, "Left hand should be provided by command");
         }
-
-        [Test]
+        
         public void TestRotate()
         {
             var rotated = false;
             var rotateDetected = new ManualResetEvent(false);
-            var player = new LeapPlayer(@"frames\left_hand_grab.frames");
+            var player = new LeapPlayer(@"frames\rotate_1.frames");
             var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
             gestureRecognition.SubscribeToCommand<ScaleAndRotate>(x =>
             {
-                rotated = x.Rotation.X > 2;
+                rotated = Math.Abs(x.Rotation.x) > 0.1;
                 rotateDetected.Set();
             });
             player.StartConnection();
@@ -92,36 +92,16 @@ namespace GestureRecognitionTest
             player.StopConnection();
             Assert.IsTrue(rotated, "Rotation should be true.");
         }
-
-        [Test]
+        
         public void ScaleUpTest()
         {
             var scale = false;
             var scaleDetected = new ManualResetEvent(false);
-            var player = new LeapPlayer(@"frames\left_hand_grab.frames");
+            var player = new LeapPlayer(@"frames\scale_up.frames");
             var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
             gestureRecognition.SubscribeToCommand<ScaleAndRotate>(x =>
             {
-                scale = x.Scale > 1.1;
-                scaleDetected.Set();
-            });
-            player.StartConnection();
-            Assert.IsTrue(scaleDetected.WaitOne(2000), "Scale And Rotate Command should be detected");
-            player.StopConnection();
-            Assert.IsTrue(scale, "Scale should be true.");
-        }
-
-
-        [Test]
-        public void ScaleDownTest()
-        {
-            var scale = false;
-            var scaleDetected = new ManualResetEvent(false);
-            var player = new LeapPlayer(@"frames\left_hand_grab.frames");
-            var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
-            gestureRecognition.SubscribeToCommand<ScaleAndRotate>(x =>
-            {
-                scale = x.Scale < 0.9;
+                scale = Math.Abs(x.Scale - 1.0) > 0.001;
                 scaleDetected.Set();
             });
             player.StartConnection();
