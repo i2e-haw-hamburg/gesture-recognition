@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using GestureRecognition.Implementation;
 using GestureRecognition.Interface;
@@ -73,6 +74,40 @@ namespace GestureRecognitionTest
             Assert.IsTrue(grabDetected.WaitOne(2000), "Grab Command of left hand should be detected");
             player.StopConnection();
             Assert.IsTrue(leftHand, "Left hand should be provided by command");
+        }
+        
+        public void TestRotate()
+        {
+            var rotated = false;
+            var rotateDetected = new ManualResetEvent(false);
+            var player = new LeapPlayer(@"frames\rotate_1.frames");
+            var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
+            gestureRecognition.SubscribeToCommand<ScaleAndRotate>(x =>
+            {
+                rotated = Math.Abs(x.Rotation.x) > 0.1;
+                rotateDetected.Set();
+            });
+            player.StartConnection();
+            Assert.IsTrue(rotateDetected.WaitOne(2000), "Scale And Rotate Command should be detected");
+            player.StopConnection();
+            Assert.IsTrue(rotated, "Rotation should be true.");
+        }
+        
+        public void ScaleUpTest()
+        {
+            var scale = false;
+            var scaleDetected = new ManualResetEvent(false);
+            var player = new LeapPlayer(@"frames\scale_up.frames");
+            var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
+            gestureRecognition.SubscribeToCommand<ScaleAndRotate>(x =>
+            {
+                scale = Math.Abs(x.Scale - 1.0) > 0.001;
+                scaleDetected.Set();
+            });
+            player.StartConnection();
+            Assert.IsTrue(scaleDetected.WaitOne(2000), "Scale And Rotate Command should be detected");
+            player.StopConnection();
+            Assert.IsTrue(scale, "Scale should be true.");
         }
     }
 }

@@ -60,9 +60,9 @@ namespace GestureRecognition.Implementation
         {
             try
             {
+                _frameBuffer.Add(frame);
                 if (frame.Hands.Count > 0)
                 {
-                    _frameBuffer.Add(frame);
                     var physicsCmd = new PhysicCommand();
                     foreach (var hand in frame.Hands)
                     {
@@ -73,11 +73,6 @@ namespace GestureRecognition.Implementation
                         }
                     }
                     FireNewCommand(physicsCmd);
-                }
-                if (frame.Hands.Count == 2)
-                {
-                    var leftHand = frame.Hands.Find(h => h.IsLeft);
-                    var rightHand = frame.Hands.Find(h => h.IsRight);
                 }
             }
             catch (Exception e)
