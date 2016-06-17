@@ -25,5 +25,8 @@ namespace GestureRecognition.Interface.Commands
         /// The center of the command at the begin of the command.
         /// </summary>
         public Vector Center { get; set; }
+
+        public Vector LeftHand { get; set; }
+        public Vector RightHand { get; set; }
     }
 }

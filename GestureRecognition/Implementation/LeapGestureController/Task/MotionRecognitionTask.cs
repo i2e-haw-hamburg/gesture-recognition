@@ -74,7 +74,9 @@ namespace GestureRecognition.Implementation.Task
             {
                 Scale = (leftHand.PalmPosition - rightHand.PalmPosition).MagnitudeSquared / (rightToLeftOld).MagnitudeSquared,
                 Center = center,
-                Rotation = new Vector(rightToLeft.Pitch - rightToLeftOld.Pitch, rightToLeft.Yaw - rightToLeftOld.Yaw, rightToLeft.Roll - rightToLeftOld.Roll)
+                Rotation = new Vector(rightToLeft.Pitch - rightToLeftOld.Pitch, rightToLeft.Yaw - rightToLeftOld.Yaw, rightToLeft.Roll - rightToLeftOld.Roll),
+                LeftHand = leftHand.PalmPosition,
+                RightHand = rightHand.PalmPosition
             };
             var result = new Result(cmd, 0.9);
             fireNewMotions(new List<Result> {result});
@@ -98,20 +100,20 @@ namespace GestureRecognition.Implementation.Task
         }
         
         /// <summary>
-        /// Start pose is detected, when 
+        /// Start pose is detected, when both hands are available and facing each other without doing a grab gesture.
         /// </summary>
         /// <param name="leftHand"></param>
         /// <param name="rightHand"></param>
         /// <returns></returns>
         private static bool IsStartPose(Hand leftHand, Hand rightHand)
         {
-            var grabTheshold = 0.3;
-            if (leftHand.GrabStrength > grabTheshold || rightHand.GrabStrength > grabTheshold)
+            var grabThreshold = 0.3;
+            if (leftHand.GrabStrength > grabThreshold || rightHand.GrabStrength > grabThreshold)
             {
                 return false;
             }
-            return Geometry.DirectTo(leftHand.PalmPosition, leftHand.PalmNormal, rightHand.PalmPosition) &&
-                   Geometry.DirectTo(rightHand.PalmPosition, rightHand.PalmNormal, leftHand.PalmPosition);
+            return Geometry.DirectTo(leftHand.PalmPosition, leftHand.PalmNormal, rightHand.PalmPosition, 30) &&
+                   Geometry.DirectTo(rightHand.PalmPosition, rightHand.PalmNormal, leftHand.PalmPosition, 30);
         }
     }
 

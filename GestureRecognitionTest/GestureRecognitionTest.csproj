@@ -114,6 +114,7 @@
     <Compile Include="Implementation\Pipeline\Interpreted\Template\BoundaryBoxTest.cs" />
     <Compile Include="Implementation\Serializer\BsonLeapSerializerTest.cs" />
     <Compile Include="Implementation\Serializer\LeapSerializerTest.cs" />
+    <Compile Include="Utility\GeometryTest.cs" />
     <Compile Include="Utility\DoubleUtilityTest.cs" />
     <Compile Include="Utility\ListExtensionTest.cs" />
   </ItemGroup>
