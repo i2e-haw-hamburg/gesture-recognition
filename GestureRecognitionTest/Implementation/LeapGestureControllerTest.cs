@@ -75,7 +75,8 @@ namespace GestureRecognitionTest
             player.StopConnection();
             Assert.IsTrue(leftHand, "Left hand should be provided by command");
         }
-        
+
+        [Test]
         public void TestRotate()
         {
             var rotated = false;
@@ -84,7 +85,7 @@ namespace GestureRecognitionTest
             var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
             gestureRecognition.SubscribeToCommand<ScaleAndRotate>(x =>
             {
-                rotated = Math.Abs(x.Rotation.x) > 0.1;
+                rotated = Math.Abs(x.Rotation.x) > 0.01;
                 rotateDetected.Set();
             });
             player.StartConnection();
