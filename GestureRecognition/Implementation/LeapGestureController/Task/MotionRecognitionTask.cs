@@ -115,6 +115,8 @@ namespace GestureRecognition.Implementation.Task
             return Geometry.DirectTo(leftHand.PalmPosition, leftHand.PalmNormal, rightHand.PalmPosition, 30) &&
                    Geometry.DirectTo(rightHand.PalmPosition, rightHand.PalmNormal, leftHand.PalmPosition, 30);
         }
+
+        
     }
 
     internal enum RecognitionState
