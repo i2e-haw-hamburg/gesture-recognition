@@ -90,14 +90,12 @@ namespace GestureRecognition.Implementation.Task
             var results = grabbedHands.Select(hand => new Result(new GrabCommand(hand.IsLeft)
             {
                 Position = hand.PalmPosition,
-                Normal = hand.PalmNormal,
-                Rotation = hand.Basis.rotation
+                Normal = hand.PalmNormal
             }, hand.GrabStrength));
             fireNewMotions(results.Concat(pinchedHands.Select(hand => new Result(new GrabCommand(hand.IsLeft)
             {
                 Position = hand.PalmPosition,
-                Normal = hand.PalmNormal,
-                Rotation = hand.Basis.rotation
+                Normal = hand.PalmNormal
             }, hand.PinchStrength))));
         }
         
@@ -110,12 +108,14 @@ namespace GestureRecognition.Implementation.Task
         private static bool IsStartPose(Hand leftHand, Hand rightHand)
         {
             var grabThreshold = 0.3;
+            var rotationThreshold = 0.2;
             if (leftHand.GrabStrength > grabThreshold || rightHand.GrabStrength > grabThreshold)
             {
                 return false;
             }
-            return Geometry.DirectTo(leftHand.PalmPosition, leftHand.PalmNormal, rightHand.PalmPosition, 30) &&
-                   Geometry.DirectTo(rightHand.PalmPosition, rightHand.PalmNormal, leftHand.PalmPosition, 30);
+            var facing = leftHand.PalmNormal + rightHand.PalmNormal;
+            
+            return Math.Abs(facing.x) < rotationThreshold || Math.Abs(facing.y) < rotationThreshold || Math.Abs(facing.z) < rotationThreshold;
         }
 
         
