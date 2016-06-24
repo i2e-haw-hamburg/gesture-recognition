@@ -28,5 +28,7 @@ namespace GestureRecognition.Interface.Commands
         /// The normal of the hand palm of the hand which performs the grab command.
         /// </summary>
         public Vector Normal { get; set; }
+
+        public LeapQuaternion Rotation { get; set; }
     }
 }

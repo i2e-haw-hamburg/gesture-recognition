@@ -90,12 +90,14 @@ namespace GestureRecognition.Implementation.Task
             var results = grabbedHands.Select(hand => new Result(new GrabCommand(hand.IsLeft)
             {
                 Position = hand.PalmPosition,
-                Normal = hand.PalmNormal
+                Normal = hand.PalmNormal,
+                Rotation = hand.Basis.rotation
             }, hand.GrabStrength));
             fireNewMotions(results.Concat(pinchedHands.Select(hand => new Result(new GrabCommand(hand.IsLeft)
             {
                 Position = hand.PalmPosition,
-                Normal = hand.PalmNormal
+                Normal = hand.PalmNormal,
+                Rotation = hand.Basis.rotation
             }, hand.PinchStrength))));
         }
         
