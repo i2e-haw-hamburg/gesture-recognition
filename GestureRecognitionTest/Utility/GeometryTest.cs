@@ -14,8 +14,12 @@ namespace GestureRecognitionTest.Utility
         public void TestDirectTo()
         {
             Assert.IsTrue(Geometry.DirectTo(Vector3.Zero, Vector3.Right, new Vector3(2, 0, 0)));
-            Assert.IsFalse(Geometry.DirectTo(Vector3.Zero, Vector3.Left, new Vector3(2, 0, 0)));
             Assert.IsTrue(Geometry.DirectTo(Vector3.Zero, Vector3.Right, new Vector3(4, 1, 0), 45));
+            
+            Assert.IsTrue(Geometry.DirectTo(Vector3.Zero, new Vector3(1, -1, 0), new Vector3(2, -2, 0)));
+            Assert.IsTrue(Geometry.DirectTo(new Vector3(2, -2, 0), new Vector3(-1, 1, 0), Vector3.Zero));
+
+            Assert.IsFalse(Geometry.DirectTo(Vector3.Zero, Vector3.Left, new Vector3(2, 0, 0)));
             Assert.IsFalse(Geometry.DirectTo(Vector3.Zero, Vector3.Right, new Vector3(3, 1, 0)));
 
             Assert.IsTrue(Geometry.DirectTo(new Vector3(123.5262, 432.3945, 133.2612), new Vector3(-0.3469545, -0.5146277, -0.7840797), new Vector3(11.2197, 261.1236, -58.43291), 35));

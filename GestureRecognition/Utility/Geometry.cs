@@ -20,7 +20,7 @@ namespace GestureRecognition.Utility
         /// <returns>Whether the given normal points to the target from a position or not</returns>
         public static bool DirectTo(Vector3 position, Vector3 normal, Vector3 target, double threshold = 15.0)
         {
-            var direction = target - position;
+            var direction = Vector3.Normalize(target - position);
             // angle in radians
             double turningAngle = Vector3.Angle(normal, direction);
             // angle in degrees
