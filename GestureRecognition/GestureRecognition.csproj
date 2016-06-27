@@ -165,10 +165,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GestureRecognition.nuspec" />
+    <None Include="LeapC.lib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LeapCSharp.NET4.5.dll" />
+    <Content Include="LeapC.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LeapCSharp.NET4.5.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

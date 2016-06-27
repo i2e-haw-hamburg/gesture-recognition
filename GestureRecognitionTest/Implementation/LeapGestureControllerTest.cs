@@ -71,7 +71,7 @@ namespace GestureRecognitionTest
                 grabDetected.Set();
             });
             player.StartConnection();
-            Assert.IsTrue(grabDetected.WaitOne(2000), "Grab Command of left hand should be detected");
+            Assert.IsTrue(grabDetected.WaitOne(6000), "Grab Command of left hand should be detected");
             player.StopConnection();
             Assert.IsTrue(leftHand, "Left hand should be provided by command");
         }

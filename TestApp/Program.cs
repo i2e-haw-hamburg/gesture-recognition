@@ -27,6 +27,12 @@ namespace TestApp
                 count++;
                 Console.WriteLine($"New command detected. Nr: {count}");
             });
+
+            recognition.SubscribeToCommand<GrabCommand>((cmd) =>
+            {
+                count++;
+                Console.WriteLine($"New grab command detected. Nr: {count}");
+            });
         }
 
         static void Main(string[] args)

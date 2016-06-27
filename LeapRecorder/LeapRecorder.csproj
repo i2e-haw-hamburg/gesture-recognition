@@ -76,7 +76,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="LeapC.lib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GestureRecognition\GestureRecognition.csproj">
+      <Project>{BC1129C8-F95E-4240-9B63-81A0538AC0DC}</Project>
+      <Name>GestureRecognition</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="LeapC.dll">
@@ -85,12 +94,6 @@
     <Content Include="LeapCSharp.NET4.5.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GestureRecognition\GestureRecognition.csproj">
-      <Project>{BC1129C8-F95E-4240-9B63-81A0538AC0DC}</Project>
-      <Name>GestureRecognition</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
