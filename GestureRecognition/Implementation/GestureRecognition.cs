@@ -146,9 +146,9 @@ namespace GestureRecognition.Implementation
 
         private void WriteFrames(Frame f)
         {
-            var frame = _serializer.Serialize(f);
             try
             {
+                var frame = _serializer.Serialize(f);
                 var length = frame.Length;
                 _file.Write(BitConverter.GetBytes(length), 0, 4);
                 _file.Write(frame, 0, length);
