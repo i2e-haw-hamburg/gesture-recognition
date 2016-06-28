@@ -2,7 +2,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using GestureRecognition.Implementation.Serializer;
+using Leap;
 using Trame;
 
 #endregion
@@ -42,6 +45,7 @@ namespace GestureRecognition.Implementation
             _decider.NewInterpretedCommand += FireNewCommand;
             _controller.NewPhysicsCommand += FireNewCommand;
             _controller.NewMotions += _decider.Decide;
+            _controller.NewFrame += WriteFrames;
         }
 
         private void FireNewCommand(AUserCommand cmd)
@@ -53,6 +57,9 @@ namespace GestureRecognition.Implementation
 
         private Dictionary<Type, IList<IUserCommandListener>> listeners =
             new Dictionary<Type, IList<IUserCommandListener>>();
+
+        private LeapFrameSerializer _serializer;
+        private FileStream _file;
 
         #endregion
 
@@ -78,8 +85,11 @@ namespace GestureRecognition.Implementation
             _decider.NewInterpretedCommand -= FireNewCommand;
             _controller.NewPhysicsCommand -= FireNewCommand;
             _controller.NewMotions -= _decider.Decide;
+            _controller.NewFrame -= WriteFrames;
             _controller.Stop();
+            StopRecording();
         }
+        
 
         public void SubscribeToCommand<T>(Action<T> commandListener) where T : AUserCommand
         {
@@ -123,6 +133,33 @@ namespace GestureRecognition.Implementation
         public void OnNewSkeleton(ISkeleton skeleton)
         {
             _controller.PushNewSkeleton(skeleton);
+        }
+
+        public void StartRecording()
+        {
+            var fileName = DateTime.Now.ToFileTime() + ".frames";
+            var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), fileName);
+            StopRecording();
+            _serializer = new LeapFrameSerializer();
+            _file = new FileStream(filePath, FileMode.OpenOrCreate);
+        }
+
+        private void WriteFrames(Frame f)
+        {
+            try
+            {
+                var frame = _serializer.Serialize(f);
+                var length = frame.Length;
+                _file.Write(BitConverter.GetBytes(length), 0, 4);
+                _file.Write(frame, 0, length);
+            }
+            catch (Exception)
+            { }
+        }
+
+        public void StopRecording()
+        {
+            _file?.Close();
         }
 
         #endregion

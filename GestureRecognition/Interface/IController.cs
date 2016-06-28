@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GestureRecognition.Implementation.Pipeline.Interpreted;
 using GestureRecognition.Interface.Commands;
+using Leap;
 using Trame;
 
 namespace GestureRecognition.Interface
@@ -13,5 +14,6 @@ namespace GestureRecognition.Interface
         void PushNewSkeleton(ISkeleton skeleton);
 
         void Stop();
+        event Action<Frame> NewFrame;
     }
 }

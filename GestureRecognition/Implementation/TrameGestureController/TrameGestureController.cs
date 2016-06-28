@@ -5,9 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using GestureRecognition.Implementation.Pipeline.Interpreted;
 using GestureRecognition.Implementation.TrameGestureController.Tasks;
-using GestureRecognition.Interface;
 using GestureRecognition.Interface.Commands;
+using Leap;
 using Trame;
+using IController = GestureRecognition.Interface.IController;
 
 namespace GestureRecognition.Implementation.TrameGestureController
 {
@@ -67,6 +68,8 @@ namespace GestureRecognition.Implementation.TrameGestureController
         {
             // pass
         }
+
+        public event Action<Frame> NewFrame;
 
         /// <summary>
         /// 
