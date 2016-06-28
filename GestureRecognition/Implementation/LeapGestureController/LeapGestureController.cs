@@ -58,6 +58,10 @@ namespace GestureRecognition.Implementation
         
         private void NewFrameAvailable(Frame frame)
         {
+            if (NewFrame != null)
+            {
+                NewFrame(frame);
+            }
             try
             {
                 _frameBuffer.Add(frame);
@@ -222,6 +226,8 @@ namespace GestureRecognition.Implementation
             _controller.FrameReady -= NewFrameAvailable;
             _cancellationTokenSource.Cancel();
         }
+
+        public event Action<Frame> NewFrame;
     }
         
 }

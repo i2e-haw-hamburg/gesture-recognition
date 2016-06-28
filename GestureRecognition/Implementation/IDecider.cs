@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GestureRecognition.Implementation.Pipeline.Interpreted;
 using GestureRecognition.Interface.Commands;
+using Leap;
 
 namespace GestureRecognition.Implementation
 {

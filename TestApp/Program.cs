@@ -33,6 +33,8 @@ namespace TestApp
                 count++;
                 Console.WriteLine($"New grab command detected. Nr: {count}");
             });
+
+            recognition.StartRecording();
         }
 
         static void Main(string[] args)

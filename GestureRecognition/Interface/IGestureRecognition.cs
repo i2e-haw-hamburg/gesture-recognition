@@ -55,6 +55,16 @@ namespace GestureRecognition.Interface
         /// <param name="skeleton">a new skeleton</param>
         void OnNewSkeleton(ISkeleton skeleton);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        void StartRecording();
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        void StopRecording();
+
         #endregion
     }
 }
