@@ -9,6 +9,7 @@ using GestureRecognition.Interface.Commands;
 using GestureRecognition.Utility;
 using Leap;
 using Trame;
+using TrameSkeleton.Math;
 
 namespace GestureRecognition.Implementation.Task
 {
@@ -67,14 +68,13 @@ namespace GestureRecognition.Implementation.Task
             var leftHandOld = _startFrame.Hands.Find(h => h.IsLeft);
             var rightHandOld = _startFrame.Hands.Find(h => h.IsRight);
             var rightToLeftOld = leftHandOld.PalmPosition - rightHandOld.PalmPosition;
-            var rightToLeft = leftHand.PalmPosition - rightHand.PalmPosition;
             var center = rightHandOld.StabilizedPalmPosition +
                          (rightToLeftOld) /2;
             var cmd = new ScaleAndRotate
             {
                 Scale = (leftHand.PalmPosition - rightHand.PalmPosition).MagnitudeSquared / (rightToLeftOld).MagnitudeSquared,
                 Center = center,
-                Rotation = new Vector(rightToLeft.Pitch - rightToLeftOld.Pitch, rightToLeft.Yaw - rightToLeftOld.Yaw, rightToLeft.Roll - rightToLeftOld.Roll),
+                Rotation = Quaternion.Inverse(rightHandOld.Rotation.ToBetterQuaternion()) * rightHand.Rotation.ToBetterQuaternion(),
                 LeftHand = leftHand.PalmPosition,
                 RightHand = rightHand.PalmPosition
             };
@@ -87,18 +87,19 @@ namespace GestureRecognition.Implementation.Task
         {
             var grabbedHands = frame.Hands.Where(hand => hand.GrabStrength > 0.7);
             var pinchedHands = frame.Hands.Where(hand => hand.PinchStrength > 0.7);
-            var results = grabbedHands.Select(hand => new Result(new GrabCommand(hand.IsLeft)
+            var results = grabbedHands.Select(FromHand);
+            fireNewMotions(results.Concat(pinchedHands.Select(FromHand)));
+        }
+
+        private static Result FromHand(Hand hand)
+        {
+            
+            return new Result(new GrabCommand(hand.IsLeft)
             {
-                Position = hand.PalmPosition,
+                Position = hand.Fingers.Find(f => f.Type == Finger.FingerType.TYPE_MIDDLE).Bone(Bone.BoneType.TYPE_METACARPAL).Center,
                 Normal = hand.PalmNormal,
                 Rotation = hand.Rotation
-            }, hand.GrabStrength));
-            fireNewMotions(results.Concat(pinchedHands.Select(hand => new Result(new GrabCommand(hand.IsLeft)
-            {
-                Position = hand.PalmPosition,
-                Normal = hand.PalmNormal,
-                Rotation = hand.Rotation
-            }, hand.PinchStrength))));
+            }, hand.GrabStrength);
         }
         
         /// <summary>

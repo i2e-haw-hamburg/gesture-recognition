@@ -93,7 +93,7 @@ namespace GestureRecognition.Utility
         }
     }
 
-    internal static class QuaternionExtensions
+    static class QuaternionExtensions
     {
         internal static Vector3 GetYawPitchRollVector(this Quaternion q)
         {
@@ -118,5 +118,11 @@ namespace GestureRecognition.Utility
             var z2 = q.Z * q.Z;
             return -Math.Atan2(2f * q.Z * q.W - 2f * q.Y * q.X, 1f - 2f * z2 - 2f * x2);
         }
+
+        internal static Quaternion ToBetterQuaternion(this LeapQuaternion q)
+        {
+            return new Quaternion(q.x, q.y, q.z, q.w);
+        }
+   
     }
 }
