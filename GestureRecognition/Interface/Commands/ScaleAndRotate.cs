@@ -16,7 +16,7 @@ namespace GestureRecognition.Interface.Commands
         /// <summary>
         /// The relative rotation around x, y, z axis (Pitch, Yaw, Roll).
         /// </summary>
-        public LeapQuaternion Rotation { get; set; }
+        public Quaternion Rotation { get; set; }
         /// <summary>
         /// The scale as a simple double value. Independent scaling is problematic in 3d.
         /// </summary>

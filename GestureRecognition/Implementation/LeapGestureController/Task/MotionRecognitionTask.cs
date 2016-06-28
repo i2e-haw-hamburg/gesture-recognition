@@ -98,7 +98,7 @@ namespace GestureRecognition.Implementation.Task
             {
                 Position = hand.Fingers.Find(f => f.Type == Finger.FingerType.TYPE_MIDDLE).Bone(Bone.BoneType.TYPE_METACARPAL).Center,
                 Normal = hand.PalmNormal,
-                Rotation = hand.Rotation
+                Rotation = hand.Rotation.ToBetterQuaternion()
             }, hand.GrabStrength);
         }
         
