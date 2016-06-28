@@ -1,4 +1,5 @@
 ﻿using Leap;
+using TrameSkeleton.Math;
 
 namespace GestureRecognition.Interface.Commands
 {
@@ -29,6 +30,6 @@ namespace GestureRecognition.Interface.Commands
         /// </summary>
         public Vector Normal { get; set; }
 
-        public LeapQuaternion Rotation { get; set; }
+        public Quaternion Rotation { get; set; }
     }
 }
