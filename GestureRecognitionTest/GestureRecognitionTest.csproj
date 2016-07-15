@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\DeciderTest.cs" />
+    <Compile Include="Implementation\LeapPlayerTest.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\InputVectorTest.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Recognizer\Blank\ThreeDGestureRecognizerTest.cs" />
     <Compile Include="Implementation\Pipeline\Interpreted\Template\ExplodeGestureTest.cs" />
