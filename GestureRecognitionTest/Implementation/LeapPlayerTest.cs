@@ -19,7 +19,7 @@
         public void TestLeapPlayerLoop()
         {
             var testOver = new ManualResetEventSlim();
-            var timeoutTimer = new Timer(100);
+            var timeoutTimer = new Timer(10000);
 
             var player = new LeapPlayer(@"frames\rotate_1.frames");
             player.LoopOutput = true;
@@ -37,10 +37,10 @@
             };
             player.FrameReady += frameListener;
 
-            timeoutTimer.Elapsed += (sender, args) => testOver.Set(); 
-            
-            timeoutTimer.Start();
+            timeoutTimer.Elapsed += (sender, args) => testOver.Set();
             player.StartConnection();
+
+            timeoutTimer.Start();
 
             testOver.Wait();
 
