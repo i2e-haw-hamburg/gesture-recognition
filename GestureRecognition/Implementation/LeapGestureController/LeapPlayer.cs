@@ -106,8 +106,22 @@
 
         private void ConsumeFrame()
         {
-            Frame nextFrame = this.readyFrames.Take(this._cancellationTokenSource.Token);
-            this.FireFrameReady(nextFrame);
+            // If this method is called from a timer, prevent the blocking calls from beeing queued up if there are no more frames available.
+            if (this.FrameDelay > 0)
+            {
+                Frame nextFrame;
+                var frameAvailable = this.readyFrames.TryTake(out nextFrame);
+                if (frameAvailable)
+                {
+                    this.FireFrameReady(nextFrame);
+                }
+            }
+            // Otherwise the method is called from a loop. We should block and wait for the next frame.
+            else
+            {
+                Frame nextFrame = this.readyFrames.Take(this._cancellationTokenSource.Token);
+                this.FireFrameReady(nextFrame);
+            }
         }
 
         private void ConsumeFrameBuffer()
