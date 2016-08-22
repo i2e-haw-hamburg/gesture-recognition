@@ -4,6 +4,7 @@
     using System.Collections.Concurrent;
     using System.IO;
     using System.Threading;
+    using System.Threading.Tasks;
 
     using global::GestureRecognition.Implementation.Serializer;
     using global::GestureRecognition.Interface;
@@ -54,10 +55,10 @@
 
             this._producerTask = new System.Threading.Tasks.Task(
                 this.FillFrameBuffer, 
-                this._cancellationTokenSource.Token);
+                this._cancellationTokenSource.Token, TaskCreationOptions.LongRunning);
             this._consumerTask = new System.Threading.Tasks.Task(
                 this.ConsumeFrameBuffer, 
-                this._cancellationTokenSource.Token);
+                this._cancellationTokenSource.Token, TaskCreationOptions.LongRunning);
         }
 
         public event Action<Frame> FrameReady;
