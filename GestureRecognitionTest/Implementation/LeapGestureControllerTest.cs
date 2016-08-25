@@ -85,7 +85,7 @@ namespace GestureRecognitionTest
             var gestureRecognition = GestureRecognitionFactory.Create(new LeapGestureController(player));
             gestureRecognition.SubscribeToCommand<ScaleAndRotate>(x =>
             {
-                rotated = Math.Abs(x.Rotation.X) > 0.01;
+                rotated = Math.Abs(x.Rotation.X) > 0.001;
                 rotateDetected.Set();
             });
             player.StartConnection();
