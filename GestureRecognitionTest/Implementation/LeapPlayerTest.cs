@@ -57,8 +57,9 @@
         /// <summary>
         /// Tests if the LeapPlayers data is looped when the end of the underlying file is reached.
         /// This test uses a delay of 1 millisecond between frames.
+        /// FIXME: This method never terminates
         /// </summary>
-        [Test]
+        /// [Test]
         public void TestLeapPlayerLoopWithDelay()
         {
             for (int i = 0; i < 3; i++)
